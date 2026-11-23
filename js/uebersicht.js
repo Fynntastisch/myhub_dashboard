@@ -97,9 +97,9 @@ news();
 /* ---------- Schule ---------- */
 function school(){const n=new Date(),d=(n.getDay()+6)%7,m=n.getHours()*60+n.getMinutes();
  if(d>4){$("sc").innerHTML='<p class="muted">Wochenende – kein Unterricht 🎉</p>';return}
- const T=(S.ttTimes&&S.ttTimes.length===8?S.ttTimes:DEFT).map(t=>{const p=String(t).match(/(\d+):(\d+)\s*-\s*(\d+):(\d+)/);return p?[+p[1]*60+ +p[2],+p[3]*60+ +p[4],p[3]+":"+p[4],p[1]+":"+p[2]]:null});
+ const T=(S.ttTimes&&S.ttTimes.length?S.ttTimes:DEFT).map(t=>{const p=String(t).match(/(\d+):(\d+)\s*-\s*(\d+):(\d+)/);return p?[+p[1]*60+ +p[2],+p[3]*60+ +p[4],p[3]+":"+p[4],p[1]+":"+p[2]]:null});
  const sub=r=>(S.tt[r+"-"+d]||"").trim();let cur=-1,nxt=-1;
- for(let r=0;r<8;r++){if(!T[r]||!sub(r))continue;if(m>=T[r][0]&&m<T[r][1])cur=r;if(T[r][0]>m&&nxt<0)nxt=r}
+ for(let r=0;r<T.length;r++){if(!T[r]||!sub(r))continue;if(m>=T[r][0]&&m<T[r][1])cur=r;if(T[r][0]>m&&nxt<0)nxt=r}
  let o=cur>=0?`<div class="ev"><b>Jetzt</b><span>${esc(sub(cur))} bis ${T[cur][2]}</span></div>`:'<div class="ev"><b>Jetzt</b><span class="muted">Gerade kein Unterricht</span></div>';
  o+=nxt>=0?`<div class="ev"><b>Danach</b><span>${esc(sub(nxt))} um ${T[nxt][3]}</span></div>`:'<div class="ev"><b>Danach</b><span class="muted">Heute nichts mehr ✓</span></div>';
  $("sc").innerHTML=o}

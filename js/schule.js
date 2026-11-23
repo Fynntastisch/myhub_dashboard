@@ -4,9 +4,16 @@ const fmt1=x=>x.toFixed(2).replace(".",",");
 const add=(id,fn)=>{$(id).onclick=fn};
 
 /* Stundenplan */
-function tt(){if(!S.ttTimes||S.ttTimes.length!==8)S.ttTimes=DEFT.slice();
+function tt(){if(!S.ttTimes||!S.ttTimes.length)S.ttTimes=DEFT.slice();
  $("tt").innerHTML="<tr><th></th>"+DAYS.map(d=>`<th>${d}</th>`).join("")+"</tr>"+S.ttTimes.map((t,r)=>`<tr><td><input data-t="${r}" value="${esc(t)}" style="width:125px"></td>`+DAYS.map((_,c)=>`<td><input data-k="${r}-${c}" value="${esc(S.tt[r+"-"+c]||"")}"></td>`).join("")+"</tr>").join("")}
 $("tt").oninput=e=>{const d=e.target.dataset;if(d.k!==undefined)S.tt[d.k]=e.target.value;else if(d.t!==undefined)S.ttTimes[d.t]=e.target.value;save()};
+
+const mm=x=>String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0");
+add("rowadd",()=>{if(S.ttTimes.length>=14)return;const p=String(S.ttTimes[S.ttTimes.length-1]).match(/-\s*(\d+):(\d+)/);
+ const st=p?+p[1]*60+ +p[2]:0;S.ttTimes.push(p?mm(st)+"-"+mm(st+45):"");save();tt()});
+add("rowdel",()=>{const r=S.ttTimes.length-1;if(r<1)return;
+ const full=DAYS.some((_,c)=>(S.tt[r+"-"+c]||"").trim());if(full&&!confirm("Die letzte Zeile enthält Einträge. Wirklich entfernen?"))return;
+ DAYS.forEach((_,c)=>delete S.tt[r+"-"+c]);S.ttTimes.pop();save();tt()});
 
 /* Hausaufgaben */
 function hw(){const L=S.hw.map((h,i)=>({...h,i})).sort((a,b)=>(a.done-b.done)||(a.d||"9").localeCompare(b.d||"9"));
