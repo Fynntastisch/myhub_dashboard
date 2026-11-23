@@ -3,108 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mein Dashboard</title>
-<script src="const SUPA_URL = 'https://vvdvjbquqlljsemubddo.supabase.co'; const SUPA_KEY = 'sb_publishable_boW281eb3XAR4ydrohj-Rw_y7Z8-Fn_';"></script>
+<title>Übersicht – MyHub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#07050c;--glass:rgba(255,255,255,.045);--line:rgba(167,125,255,.18);--p:#a45cff;--p2:#6d28d9;--txt:#ece7f6;--mut:#8f86a6;--ok:#4ade80;--r:20px}
-*{box-sizing:border-box;margin:0}
-body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;
-background-image:radial-gradient(900px 500px at 75% -10%,rgba(124,58,237,.35),transparent 60%),radial-gradient(600px 400px at 0% 100%,rgba(88,28,135,.3),transparent 60%);background-attachment:fixed}
-h1,h2,h3,.big{font-family:"Space Grotesk",sans-serif}
-.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
-nav{display:flex;flex-direction:column;padding:24px 16px;border-right:1px solid var(--line);position:sticky;top:0;height:100vh;background:rgba(0,0,0,.4);backdrop-filter:blur(14px)}
-.logo{font:700 1.3rem "Space Grotesk";letter-spacing:.5px;display:flex;align-items:center;justify-content:space-between;padding:0 6px 22px 12px}.logo b{color:var(--p)}
-.tgl{background:none;border:1px solid var(--line);color:var(--mut);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:.9rem}.tgl:hover{color:#fff;border-color:var(--p)}
-.prof{margin-top:auto;display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--glass);cursor:pointer;width:100%;text-align:left;color:var(--txt)}
-.prof:hover{border-color:var(--p)}
-.av{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;font:700 1rem "Space Grotesk";background:linear-gradient(135deg,var(--p),var(--p2));box-shadow:0 0 16px rgba(164,92,255,.5)}
-.prof small{display:block;color:var(--mut);font-size:.75rem}.prof b{font-weight:500;font-size:.92rem}
-body.mini .prof{justify-content:center;padding:10px 0}body.mini .prof div{display:none}
-.nlabel{font-size:.7rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--mut);opacity:.7;padding:14px 14px 8px}
-nav button i{font-style:normal;width:20px;text-align:center;font-size:1.05rem}
-.app{transition:grid-template-columns .25s}
-body.mini .app{grid-template-columns:78px 1fr}
-body.mini nav{padding:24px 10px}body.mini nav button span,body.mini .nlabel,body.mini .logo .lt{display:none}
-body.mini nav button{justify-content:center;padding:12px 0}body.mini .logo{justify-content:center;padding:0 0 22px}
-.mtop{display:none;align-items:center;gap:12px;margin-bottom:18px}.mtop .logo{padding:0}
-.scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:25}
-nav button{display:flex;gap:10px;align-items:center;width:100%;padding:11px 14px;margin-bottom:6px;border:1px solid transparent;border-radius:12px;background:none;color:var(--mut);font:500 .95rem Inter;cursor:pointer;text-align:left;transition:.2s}
-nav button:hover{color:var(--txt);background:var(--glass)}
-nav button.on{color:#fff;background:linear-gradient(135deg,rgba(164,92,255,.45),rgba(109,40,217,.2));border-color:var(--line);box-shadow:0 0 24px rgba(164,92,255,.25)}
-main{padding:28px;max-width:1300px;width:100%}
-.page{display:none}.page.on{display:block}
-.grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)}
-.card{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.08),var(--glass) 40%);border:1px solid var(--line);border-radius:var(--r);padding:20px;backdrop-filter:blur(12px);overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 40px rgba(0,0,0,.4)}
-.card h3{font-size:.8rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--mut);font-weight:500;margin-bottom:14px}
-.hero{grid-column:span 8;background:linear-gradient(135deg,rgba(124,58,237,.45),rgba(20,10,40,.6) 70%)}
-.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(190,140,255,.55),transparent 70%)}
-.hero h1{font-size:2rem;position:relative;z-index:1}.clock{font:700 3.6rem "Space Grotesk";line-height:1.1;margin-top:10px;position:relative;z-index:1;text-shadow:0 0 30px rgba(164,92,255,.7)}
-.date{color:#cdbfe8;position:relative;z-index:1}
-.s4{grid-column:span 4}.s6{grid-column:span 6}.s3{grid-column:span 3}.s12{grid-column:span 12}
-.stat .big{font-size:2.2rem;font-weight:700}.stat small{color:var(--mut)}
-.bar{height:8px;background:rgba(255,255,255,.08);border-radius:9px;overflow:hidden;margin:10px 0 4px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--p2),var(--p));border-radius:9px;box-shadow:0 0 12px var(--p)}
-.ring{width:110px;height:110px;margin:auto;display:block}
-ul{list-style:none;padding:0}
-li.row{display:flex;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px solid rgba(255,255,255,.05)}
-li.row span{flex:1}li.done span{text-decoration:line-through;color:var(--mut)}
-input,textarea,select{background:rgba(0,0,0,.35);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:9px 12px;font:inherit;outline:none;width:100%}
-input:focus,textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(164,92,255,.2)}
-input[type=checkbox]{width:auto;accent-color:var(--p)}
-.btn{background:linear-gradient(135deg,var(--p),var(--p2));border:0;color:#fff;border-radius:10px;padding:9px 16px;cursor:pointer;font:500 .9rem Inter;box-shadow:0 4px 18px rgba(164,92,255,.4);white-space:nowrap}
-.x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:1.1rem}.x:hover{color:#f87171}
-.add{display:flex;gap:8px;margin-top:12px}
-.news a{display:block;color:var(--txt);text-decoration:none;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.93rem}.news a:hover{color:var(--p)}
-.ev{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)}.ev b{color:var(--p);min-width:90px;font-weight:500}
-.pj{grid-column:span 4}
-.pj h2{font-size:1.15rem;margin-bottom:6px}.pj p{color:var(--mut);font-size:.9rem;margin-bottom:8px}
-iframe{width:100%;height:70vh;border:0;border-radius:14px;background:#fff}
-table{width:100%;border-collapse:separate;border-spacing:6px}th{color:var(--mut);font-weight:500;font-size:.8rem;text-transform:uppercase}td input{padding:8px}
-.tabs{display:flex;gap:8px;margin-bottom:16px}
-.muted{color:var(--mut);font-size:.88rem}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:10px}.top h1{font-size:1.6rem}
-.w{grid-column:span var(--c,4)}
-#login{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:20px;background:var(--bg);background-image:radial-gradient(900px 500px at 70% -10%,rgba(124,58,237,.45),transparent 60%),radial-gradient(600px 400px at 0% 100%,rgba(88,28,135,.35),transparent 60%)}
-#login .card{width:100%;max-width:380px;padding:32px}#login h1{font-size:1.7rem;margin-bottom:6px}#login input{margin-top:12px}#login .btn{width:100%;margin-top:18px;padding:12px}#lerr{color:#f87171;font-size:.88rem;margin-top:12px;min-height:1.2em}
-.ntabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.ntabs button{background:var(--glass);border:1px solid var(--line);color:var(--mut);border-radius:20px;padding:6px 14px;cursor:pointer;font:500 .85rem Inter}.ntabs button.on{color:#fff;background:linear-gradient(135deg,rgba(164,92,255,.5),rgba(109,40,217,.3));box-shadow:0 0 16px rgba(164,92,255,.3)}
-.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
-.nt{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(0,0,0,.25);color:var(--txt);text-decoration:none;transition:.2s}.nt:hover{border-color:var(--p);transform:translateY(-3px);box-shadow:0 8px 28px rgba(164,92,255,.25)}
-.nt .im{height:100px;background:linear-gradient(135deg,rgba(124,58,237,.5),rgba(20,10,40,.9));background-size:cover;background-position:center}
-.nt div.tx{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}.nt b{font:500 .92rem/1.35 Inter}.nt small{color:var(--mut);margin-top:auto;font-size:.75rem}
-.wt{display:none;position:absolute;top:8px;right:8px;gap:4px;z-index:5}body.edit .wt{display:flex}
-.wt button{background:rgba(0,0,0,.6);border:1px solid var(--line);color:#fff;border-radius:8px;width:28px;height:28px;cursor:pointer}.wt button:hover{border-color:var(--p);background:var(--p2)}
-body.edit .w{outline:1px dashed var(--p);outline-offset:-1px;cursor:grab}body.edit .w.drag{opacity:.35}body.edit .w.over{outline:2px solid var(--p);box-shadow:0 0 30px rgba(164,92,255,.5)}
-#lib{display:none;margin-bottom:18px}body.edit #lib{display:block}#lib .btn{margin:4px 6px 0 0;background:rgba(255,255,255,.08);box-shadow:none}
-.dot{width:16px;height:16px;border-radius:50%;border:1px solid var(--line);cursor:pointer;display:inline-block;margin-left:5px}.dot.on{background:var(--p);box-shadow:0 0 8px var(--p)}.dot.t{border-color:#fff}
-@media(max-width:900px){.w{grid-column:span 12!important}.app,body.mini .app{grid-template-columns:1fr}
-nav,body.mini nav{position:fixed;left:0;top:0;width:260px;height:100vh;padding:24px 16px;transform:translateX(-100%);transition:transform .3s;z-index:30;background:rgba(10,6,20,.97);border-right:1px solid var(--line)}
-body.open nav{transform:none}body.open .scrim{display:block}
-body.mini nav button span,body.mini .nlabel,body.mini .logo .lt{display:inline}body.mini .prof div{display:block}body.mini .prof{justify-content:flex-start;padding:12px}
-body.mini nav button{justify-content:flex-start;padding:11px 14px}body.mini .logo{justify-content:space-between;padding:0 6px 22px 12px}
-.mtop{display:flex}main{padding:16px 14px 30px}.hero,.s4,.s6,.s3,.pj{grid-column:span 12}.clock{font-size:2.8rem}}
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="app">
 <div id="login"><div class="card"><div class="logo" style="padding:0 0 14px">MY<b>/</b>HUB</div><h1>Willkommen zurück</h1><p class="muted">Melde dich an, um dein Dashboard zu öffnen.</p>
 <input id="lm" type="email" placeholder="E-Mail" autocomplete="username"><input id="lp" type="password" placeholder="Passwort" autocomplete="current-password"><button class="btn" id="lb">Anmelden</button><div id="lerr"></div></div></div>
 <div class="scrim" id="scrim"></div>
+<div class="app">
 <nav>
  <div class="logo"><span class="lt">MY<b>/</b>HUB</span><button class="tgl" id="tgl" title="Menü ein-/ausklappen">⇤</button></div>
  <div class="nlabel">Hauptmenü</div>
- <button data-p="dash" class="on"><i>◈</i><span>Übersicht</span></button>
- <button data-p="proj"><i>▣</i><span>Projekte</span></button>
- <button data-p="cal"><i>▦</i><span>Kalender</span></button>
- <button data-p="notes"><i>✎</i><span>Notizen</span></button>
+ <a class="ni on" href="index.html"><i>◈</i><span>Übersicht</span></a>
+ <a class="ni" href="projekte.html"><i>▣</i><span>Projekte</span></a>
+ <a class="ni" href="kalender.html"><i>▦</i><span>Kalender</span></a>
+ <a class="ni" href="notizen.html"><i>✎</i><span>Notizen</span></a>
  <div class="nlabel">Weiteres</div>
- <button data-p="set"><i>⚙</i><span>Einstellungen</span></button>
-<button class="prof" id="prof" data-go="set"><span class="av" id="av">?</span><div><b id="pname">Dein Name</b><small>Einstellungen</small></div></button>
+ <a class="ni" href="einstellungen.html"><i>⚙</i><span>Einstellungen</span></a>
+ <button class="prof" id="prof"><span class="av" id="av">?</span><div><b id="pname">Dein Name</b><small>Einstellungen</small></div></button>
 </nav>
 <main>
 <div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div></div>
-
-<section class="page on" id="dash">
+<section class="page on">
  <div class="top"><h1>Übersicht</h1><button class="btn" id="editb">✎ Anpassen</button></div>
  <div class="card" id="lib"><h3>Widget-Bibliothek – ziehe Widgets per Maus oder nutze die Pfeile (‹ ›), ↔ ändert die Breite</h3><div id="libl"></div><button class="btn" id="lrst" style="margin-top:10px;background:none;border:1px solid var(--line);box-shadow:none">Layout zurücksetzen</button></div>
  <div class="grid" id="dg">
@@ -124,203 +46,24 @@ body.mini nav button{justify-content:flex-start;padding:11px 14px}body.mini .log
   <div class="card w" data-w="focus"><h3>Fokus-Timer</h3><div class="big" id="ft" style="font-size:2.8rem;text-align:center">25:00</div><div style="display:flex;gap:8px;justify-content:center;margin:12px 0"><button class="btn" id="fs">Start</button><button class="btn" id="fr" style="background:rgba(255,255,255,.1);box-shadow:none">Reset</button></div><p class="muted" id="fc" style="text-align:center"></p></div>
  </div>
 </section>
-
-<section class="page" id="proj">
- <div class="top"><h1>Projekte</h1></div>
- <div class="card" style="margin-bottom:18px"><div class="add" style="margin:0"><input id="pn" placeholder="Projektname"><input id="pd" placeholder="Beschreibung"><button class="btn" id="padd">Anlegen</button></div></div>
- <div class="grid" id="pl"></div>
-</section>
-
-<section class="page" id="cal">
- <div class="top"><h1>Kalender</h1></div>
- <div class="card">
-  <div id="calbox"></div>
-  <h3 style="margin-top:20px">Eigener Termin</h3>
-  <div class="add" style="margin:0"><input type="date" id="ed" style="max-width:170px"><input type="time" id="et" style="max-width:120px"><input id="etit" placeholder="Titel"><button class="btn" id="eadd">Hinzufügen</button></div>
-  <ul id="evall" style="margin-top:10px"></ul>
- </div>
-</section>
-
-<section class="page" id="notes">
- <div class="top"><h1>Notizen &amp; Stundenplan</h1></div>
- <div class="grid">
-  <div class="card s12"><h3>Stundenplan</h3><div style="overflow-x:auto"><table id="tt"></table></div></div>
-  <div class="card s12"><h3>Freie Notizen</h3><textarea id="nt" rows="12" placeholder="Hier ist Platz für alles …"></textarea></div>
- </div>
-</section>
-
-<section class="page" id="set">
- <div class="top"><h1>Einstellungen</h1></div>
- <div class="card" style="max-width:640px">
-  <h3>Dein Name</h3><input id="sn" placeholder="Name">
-  <h3 style="margin-top:20px">Google Kalender-ID</h3><input id="sc" placeholder="z. B. deinname@gmail.com">
-  <h3 style="margin-top:20px">Google API-Key (optional, für Termine auf der Übersicht)</h3><input id="sk" placeholder="AIza…">
-  <p class="muted" style="margin-top:10px">Die Kalender-ID findest du in Google Kalender unter Einstellungen → Kalender integrieren. Für die Terminliste auf der Übersicht muss der Kalender öffentlich sein.</p>
-  <button class="btn" id="ssave" style="margin-top:16px">Speichern</button>
-  <div id="acc" style="display:none;margin-top:28px"><h3>Konto</h3><p class="muted" id="sync"></p><button class="btn" id="lo" style="background:rgba(255,255,255,.1);box-shadow:none">Abmelden</button></div>
- </div>
-</section>
-
 </main>
 </div>
-<script>
-const $=id=>document.getElementById(id);
-let S={name:"",cal:"",key:"",tasks:[],projects:[],events:[],notes:"",tt:{},layout:[],habits:[],focus:{d:"",n:0}};
-try{S={...S,...JSON.parse(localStorage.getItem("hub")||"{}")}}catch(e){}
-const SUPA_URL="DEINE_PROJEKT_URL",SUPA_KEY="DEIN_ANON_KEY";
-let sb=null,uid=null,cloudOn=false,pt;
-const setSync=t=>{const e=document.getElementById("sync");if(e)e.textContent=t};
-const save=()=>{try{localStorage.setItem("hub",JSON.stringify(S))}catch(e){}push()};
-function push(){if(!cloudOn)return;clearTimeout(pt);pt=setTimeout(async()=>{setSync("Speichere …");
- const{error}=await sb.from("user_data").upsert({user_id:uid,data:S,updated_at:new Date().toISOString()});
- setSync(error?"⚠ Synchronisierung fehlgeschlagen":"☁ Synchronisiert")},1200)}
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-
-function prof(){const n=S.name||"Dein Name";$("pname").textContent=n;$("av").textContent=(S.name||"?").charAt(0).toUpperCase()}
-$("prof").onclick=()=>document.querySelector('nav button[data-p="set"]').click();
-const mob=()=>matchMedia("(max-width:900px)").matches;
-try{if(localStorage.getItem("mini")==="1")document.body.classList.add("mini")}catch(e){}
-$("tgl").onclick=()=>{if(mob())return document.body.classList.remove("open");const m=document.body.classList.toggle("mini");$("tgl").textContent=m?"⇥":"⇤";try{localStorage.setItem("mini",m?"1":"0")}catch(e){}};
-$("burger").onclick=()=>document.body.classList.add("open");
-$("scrim").onclick=()=>document.body.classList.remove("open");
-document.querySelectorAll("nav button[data-p]").forEach(b=>b.onclick=()=>{document.body.classList.remove("open");
- document.querySelectorAll("nav button,.page").forEach(e=>e.classList.remove("on"));
- b.classList.add("on");$(b.dataset.p).classList.add("on")});
-
-function tick(){const n=new Date(),h=n.getHours();
- $("clock").textContent=n.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
- $("date").textContent=n.toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
- $("greet").textContent=(h<11?"Guten Morgen":h<18?"Guten Tag":"Guten Abend")+(S.name?", "+S.name:"")+" ✦"}
-setInterval(tick,1000);tick();
-
-function progress(){const n=new Date(),y=n.getFullYear(),a=new Date(y,0,1),e=new Date(y+1,0,1);
- const p=(n-a)/(e-a),left=Math.ceil((e-n)/864e5);
- $("yr").style.strokeDashoffset=314*(1-p);$("yrt").textContent=Math.round(p*100)+"%";$("yrs").textContent="Noch "+left+" Tage in "+y;
- const d=(n.getDay()+6)%7,w=(d+(n.getHours()*60+n.getMinutes())/1440)/7;
- $("s4").textContent=Math.round(w*100)+"%";$("b4").style.width=w*100+"%"}
-progress();setInterval(progress,60000);
-
-function tasks(){
- $("tl").innerHTML=S.tasks.map((t,i)=>`<li class="row ${t.done?"done":""}"><input type="checkbox" ${t.done?"checked":""} onchange="tg(${i})"><span>${esc(t.t)}</span><button class="x" onclick="td(${i})">×</button></li>`).join("")||'<p class="muted">Keine Aufgaben – genieß den Tag.</p>';
- const d=S.tasks.filter(t=>t.done).length,n=S.tasks.length;
- $("s1").textContent=d+"/"+n;$("b1").style.width=(n?d/n*100:0)+"%";$("s2").textContent=n-d;
- $("s3").textContent=S.projects.length;$("s3s").textContent=S.projects.filter(p=>p.p<100).length+" aktiv"}
-window.tg=i=>{S.tasks[i].done=!S.tasks[i].done;save();tasks()};
-window.td=i=>{S.tasks.splice(i,1);save();tasks()};
-$("tadd").onclick=()=>{const v=$("tin").value.trim();if(!v)return;S.tasks.push({t:v,done:false});$("tin").value="";save();tasks()};
-$("tin").onkeydown=e=>{if(e.key==="Enter")$("tadd").click()};
-
-function projects(){
- $("pl").innerHTML=S.projects.map((p,i)=>`<div class="card pj"><h2>${esc(p.n)}</h2><p>${esc(p.d||"")}</p><div class="bar"><i style="width:${p.p}%"></i></div><div style="display:flex;gap:8px;align-items:center;margin-top:8px"><input type="range" min="0" max="100" value="${p.p}" oninput="pp(${i},this.value)" style="accent-color:#a45cff;padding:0"><span class="muted">${p.p}%</span><button class="x" onclick="pdl(${i})">×</button></div></div>`).join("")||'<p class="muted">Noch keine Projekte.</p>';tasks()}
-window.pp=(i,v)=>{S.projects[i].p=+v;save()};
-window.pdl=i=>{S.projects.splice(i,1);save();projects()};
-$("padd").onclick=()=>{const n=$("pn").value.trim();if(!n)return;S.projects.push({n,d:$("pd").value,p:0});$("pn").value=$("pd").value="";save();projects()};
-document.addEventListener("change",e=>{if(e.target.type==="range")projects()});
-
-function events(){
- const t=new Date().toISOString().slice(0,10);
- S.events.sort((a,b)=>(a.d+a.t).localeCompare(b.d+b.t));
- const f=S.events.filter(e=>e.d>=t);
- const row=e=>`<div class="ev"><b>${new Date(e.d).toLocaleDateString("de-DE",{day:"2-digit",month:"short"})} ${esc(e.t||"")}</b><span>${esc(e.title)}</span></div>`;
- window._loc=f.slice(0,5).map(row).join("");renderEv();
- $("evall").innerHTML=S.events.map((e,i)=>`<li class="row"><span>${new Date(e.d).toLocaleDateString("de-DE")} ${esc(e.t||"")} – ${esc(e.title)}</span><button class="x" onclick="ed_(${i})">×</button></li>`).join("")}
-window.ed_=i=>{S.events.splice(i,1);save();events()};
-$("eadd").onclick=()=>{if(!$("ed").value||!$("etit").value)return;S.events.push({d:$("ed").value,t:$("et").value,title:$("etit").value});$("etit").value="";save();events()};
-function renderEv(){$("evl").innerHTML=(window._g||"")+(window._loc||"")||'<p class="muted">Keine anstehenden Termine.</p>'}
-async function gcal(){
- if(!S.cal||!S.key)return;
- try{const r=await fetch(`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(S.cal)}/events?key=${S.key}&timeMin=${new Date().toISOString()}&singleEvents=true&orderBy=startTime&maxResults=5`);
-  const j=await r.json();window._g=(j.items||[]).map(e=>{const s=e.start.dateTime||e.start.date;const d=new Date(s);
-   return `<div class="ev"><b>${d.toLocaleDateString("de-DE",{day:"2-digit",month:"short"})} ${e.start.dateTime?d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}):""}</b><span>${esc(e.summary||"")}</span></div>`}).join("");renderEv()}catch(e){}}
-function calFrame(){
- $("calbox").innerHTML=S.cal?`<iframe src="https://calendar.google.com/calendar/embed?src=${encodeURIComponent(S.cal)}&ctz=Europe%2FBerlin&mode=WEEK&showTitle=0&showPrint=0&hl=de&bgcolor=%23ffffff"></iframe>`:'<p class="muted">Trag unter „Einstellungen“ deine Google Kalender-ID ein, dann erscheint er hier.</p>'}
-
-const FEEDS={Welt:"https://www.tagesschau.de/index~rss2.xml",Technik:"https://www.heise.de/rss/heise-atom.xml",
-"Autos & Motorräder":"https://news.google.com/rss/search?q="+encodeURIComponent("Auto OR Motorrad")+"&hl=de&gl=DE&ceid=DE:de",
-Gaming:"https://news.google.com/rss/search?q="+encodeURIComponent("Gaming OR Videospiele")+"&hl=de&gl=DE&ceid=DE:de"};
-let ntab=Object.keys(FEEDS)[0];const ncache={};
-const ago=d=>{const m=Math.max(0,(Date.now()-new Date(d.replace(" ","T")+"Z"))/6e4);return m<60?"vor "+Math.round(m)+" Min.":m<1440?"vor "+Math.round(m/60)+" Std.":"vor "+Math.round(m/1440)+" Tg."};
-function ntabs(){$("ntabs").innerHTML=Object.keys(FEEDS).map(k=>`<button class="${k===ntab?"on":""}" onclick="ntab=this.textContent;news()">${esc(k)}</button>`).join("")}
-async function news(){ntabs();const box=$("news");
- try{if(!ncache[ntab]){box.textContent="Lade …";const r=await fetch("https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(FEEDS[ntab]));const j=await r.json();if(!j.items)throw 0;ncache[ntab]=j.items.slice(0,8)}
-  box.innerHTML=ncache[ntab].map(i=>{let t=i.title,src=(i.author||"").trim();const k=t.lastIndexOf(" - ");if(k>0&&!src){src=t.slice(k+3);t=t.slice(0,k)}
-   const img=i.thumbnail||(i.enclosure&&i.enclosure.link&&/\.(jpe?g|png|webp)/i.test(i.enclosure.link)?i.enclosure.link:"");
-   return `<a class="nt" href="${esc(i.link)}" target="_blank" rel="noopener"><div class="im" ${img?`style="background-image:url('${esc(img)}')"`:""}></div><div class="tx"><b>${esc(t)}</b><small>${esc(src||ntab)} · ${ago(i.pubDate)}</small></div></a>`}).join("")}
- catch(e){box.textContent="Nachrichten konnten nicht geladen werden."}}
-
-const days=["Mo","Di","Mi","Do","Fr"];
-$("tt").innerHTML="<tr><th></th>"+days.map(d=>`<th>${d}</th>`).join("")+"</tr>"+Array.from({length:8},(_,r)=>`<tr><th>${r+1}.</th>`+days.map((_,c)=>`<td><input data-k="${r}-${c}" value="${esc(S.tt[r+"-"+c]||"")}"></td>`).join("")+"</tr>").join("");
-$("tt").oninput=e=>{S.tt[e.target.dataset.k]=e.target.value;save()};
-$("nt").value=S.notes;$("nt").oninput=()=>{S.notes=$("nt").value;save()};
-
-$("sn").value=S.name;$("sc").value=S.cal;$("sk").value=S.key;
-$("ssave").onclick=()=>{S.name=$("sn").value.trim();S.cal=$("sc").value.trim();S.key=$("sk").value.trim();save();tick();prof();calFrame();gcal();$("ssave").textContent="Gespeichert ✓";setTimeout(()=>$("ssave").textContent="Speichern",1500)};
-
-
-/* ---------- Modulares Layout ---------- */
-const W={hero:["Begrüßung",8],year:["Jahresfortschritt",4],tasks:["Aufgaben",6],events:["Termine",6],st1:["Erledigt",3],st2:["Offen",3],st3:["Projekte",3],st4:["Woche",3],news:["Nachrichten",12],habits:["Gewohnheiten",6],focus:["Fokus-Timer",4]};
-const SZ=[3,4,6,8,12],dg=$("dg");
-Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l.id===id))S.layout.push({id,c:W[id][1],on:1})});
-S.layout=S.layout.filter(l=>W[l.id]);
-dg.querySelectorAll("[data-w]").forEach(el=>{el.insertAdjacentHTML("afterbegin",'<div class="wt"><button data-a="l" title="Nach vorne">‹</button><button data-a="r" title="Nach hinten">›</button><button data-a="s" title="Breite">↔</button><button data-a="x" title="Ausblenden">×</button></div>');
- el.ondragstart=e=>{e.dataTransfer.setData("text/plain",el.dataset.w);el.classList.add("drag")};
- el.ondragend=()=>{el.classList.remove("drag");dg.querySelectorAll(".over").forEach(o=>o.classList.remove("over"))};
- el.ondragover=e=>{if(document.body.classList.contains("edit")){e.preventDefault();el.classList.add("over")}};
- el.ondragleave=()=>el.classList.remove("over");
- el.ondrop=e=>{e.preventDefault();const a=e.dataTransfer.getData("text/plain"),b=el.dataset.w;if(a===b)return;
-  const i=S.layout.findIndex(l=>l.id===a),it=S.layout.splice(i,1)[0],j=S.layout.findIndex(l=>l.id===b);S.layout.splice(j,0,it);save();layout()}});
-function layout(){S.layout.forEach(l=>{const el=dg.querySelector(`[data-w="${l.id}"]`);el.style.setProperty("--c",l.c);el.style.display=l.on?"":"none";dg.appendChild(el)});
- $("libl").innerHTML=S.layout.filter(l=>!l.on).map(l=>`<button class="btn" onclick="wadd('${l.id}')">+ ${W[l.id][0]}</button>`).join("")||'<span class="muted">Alle Widgets sind sichtbar.</span>'}
-window.wadd=id=>{S.layout.find(l=>l.id===id).on=1;save();layout()};
-dg.addEventListener("click",e=>{const b=e.target.closest(".wt button");if(!b)return;
- const id=b.closest("[data-w]").dataset.w,i=S.layout.findIndex(l=>l.id===id),a=b.dataset.a,L=S.layout;
- if(a==="x")L[i].on=0;
- else if(a==="s")L[i].c=SZ[(SZ.indexOf(L[i].c)+1)%SZ.length];
- else{const d=a==="l"?-1:1;let j=i+d;while(L[j]&&!L[j].on)j+=d;if(L[j]){[L[i],L[j]]=[L[j],L[i]]}}
- save();layout()});
-$("editb").onclick=()=>{const on=document.body.classList.toggle("edit");$("editb").textContent=on?"✓ Fertig":"✎ Anpassen";dg.querySelectorAll("[data-w]").forEach(el=>el.draggable=on)};
-$("lrst").onclick=()=>{S.layout=Object.keys(W).map(id=>({id,c:W[id][1],on:1}));save();layout()};
-
-/* ---------- Gewohnheiten ---------- */
-const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-function habits(){const t=ymd(new Date()),days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);return ymd(d)});
- $("hl").innerHTML=S.habits.map((h,i)=>{let st=0,d=new Date();if(!h.log[t])d.setDate(d.getDate()-1);while(h.log[ymd(d)]){st++;d.setDate(d.getDate()-1)}
-  return `<li class="row"><span>${esc(h.n)}</span><div>${days.map(x=>`<i class="dot ${h.log[x]?"on":""} ${x===t?"t":""}" onclick="hg(${i},'${x}')"></i>`).join("")}</div><small class="muted" style="min-width:34px;text-align:right">🔥${st}</small><button class="x" onclick="hd(${i})">×</button></li>`}).join("")||'<p class="muted">Lege deine erste Gewohnheit an.</p>'}
-window.hg=(i,d)=>{const l=S.habits[i].log;l[d]?delete l[d]:l[d]=1;save();habits()};
-window.hd=i=>{S.habits.splice(i,1);save();habits()};
-$("hadd").onclick=()=>{const v=$("hin").value.trim();if(!v)return;S.habits.push({n:v,log:{}});$("hin").value="";save();habits()};
-$("hin").onkeydown=e=>{if(e.key==="Enter")$("hadd").click()};
-
-/* ---------- Fokus-Timer ---------- */
-let left=1500,tm=null;const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
-function fc(){const t=ymd(new Date());if(S.focus.d!==t)S.focus={d:t,n:0};$("fc").textContent=S.focus.n+" Fokus-Runden heute"}
-$("fs").onclick=()=>{if(tm){clearInterval(tm);tm=null;$("fs").textContent="Weiter";return}
- $("fs").textContent="Pause";tm=setInterval(()=>{left--;$("ft").textContent=fmt(left);
-  if(left<=0){clearInterval(tm);tm=null;left=1500;fc();S.focus.n++;save();fc();$("ft").textContent="Fertig ✓";$("fs").textContent="Start"}},1000)};
-$("fr").onclick=()=>{clearInterval(tm);tm=null;left=1500;$("ft").textContent="25:00";$("fs").textContent="Start"};
-prof();projects();events();calFrame();gcal();news();layout();habits();fc();
-
-/* ---------- Login & Cloud (Supabase) ---------- */
-function renderAll(){Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l.id===id))S.layout.push({id,c:W[id][1],on:1})});S.layout=S.layout.filter(l=>W[l.id]);
- prof();tick();progress();projects();events();calFrame();gcal();layout();habits();fc();
- $("nt").value=S.notes;$("sn").value=S.name;$("sc").value=S.cal;$("sk").value=S.key;
- document.querySelectorAll("#tt input").forEach(i=>i.value=S.tt[i.dataset.k]||"")}
-async function startCloud(ses){uid=ses.user.id;
- const{data,error}=await sb.from("user_data").select("data").eq("user_id",uid).maybeSingle();
- if(error){$("lerr").textContent="Daten konnten nicht geladen werden: "+error.message;return false}
- if(data&&data.data&&Object.keys(data.data).length){S={...S,...data.data};try{localStorage.setItem("hub",JSON.stringify(S))}catch(e){}renderAll()}
- cloudOn=true;if(!(data&&data.data&&Object.keys(data.data).length))push();
- $("login").style.display="none";$("acc").style.display="block";setSync("☁ Synchronisiert");return true}
-async function doLogin(){$("lerr").textContent="";$("lb").disabled=true;
- const{data,error}=await sb.auth.signInWithPassword({email:$("lm").value.trim(),password:$("lp").value});
- $("lb").disabled=false;if(error){$("lerr").textContent="Anmeldung fehlgeschlagen. E-Mail oder Passwort stimmt nicht.";return}
- $("lp").value="";await startCloud(data.session)}
-$("lb").onclick=doLogin;$("lp").onkeydown=e=>{if(e.key==="Enter")doLogin()};
-$("lo").onclick=async()=>{await sb.auth.signOut();try{localStorage.removeItem("hub")}catch(e){}location.reload()};
-(async()=>{if(!window.supabase||SUPA_URL.startsWith("DEINE"))return;
- sb=window.supabase.createClient(SUPA_URL,SUPA_KEY);
- const{data}=await sb.auth.getSession();
- if(data.session){$("login").style.display="grid";if(!await startCloud(data.session))$("login").style.display="grid"}else $("login").style.display="grid"})();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/uebersicht.js"></script>
+<script src="js/start.js"></script>
 </body>
+<!-- 
+                    _,)
+            _..._.-;-'
+         .-'     `(
+        /      ;   \
+       ;.' ;`  ,;  ;
+      .'' ``. (  \ ;
+     / f_ _L \ ;  )\
+     \/|` '|\/;; <;/
+    ((; \_/  (()       Fynn Wintzen - 01.11.2026
+         "
+-->
 </html>

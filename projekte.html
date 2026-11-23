@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projekte – MyHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="login"><div class="card"><div class="logo" style="padding:0 0 14px">MY<b>/</b>HUB</div><h1>Willkommen zurück</h1><p class="muted">Melde dich an, um dein Dashboard zu öffnen.</p>
+<input id="lm" type="email" placeholder="E-Mail" autocomplete="username"><input id="lp" type="password" placeholder="Passwort" autocomplete="current-password"><button class="btn" id="lb">Anmelden</button><div id="lerr"></div></div></div>
+<div class="scrim" id="scrim"></div>
+<div class="app">
+<nav>
+ <div class="logo"><span class="lt">MY<b>/</b>HUB</span><button class="tgl" id="tgl" title="Menü ein-/ausklappen">⇤</button></div>
+ <div class="nlabel">Hauptmenü</div>
+ <a class="ni" href="index.html"><i>◈</i><span>Übersicht</span></a>
+ <a class="ni on" href="projekte.html"><i>▣</i><span>Projekte</span></a>
+ <a class="ni" href="kalender.html"><i>▦</i><span>Kalender</span></a>
+ <a class="ni" href="notizen.html"><i>✎</i><span>Notizen</span></a>
+ <div class="nlabel">Weiteres</div>
+ <a class="ni" href="einstellungen.html"><i>⚙</i><span>Einstellungen</span></a>
+ <button class="prof" id="prof"><span class="av" id="av">?</span><div><b id="pname">Dein Name</b><small>Einstellungen</small></div></button>
+</nav>
+<main>
+<div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div></div>
+<section class="page on">
+ <div class="top"><h1>Projekte</h1></div>
+ <div class="card" style="margin-bottom:18px"><div class="add" style="margin:0"><input id="pn" placeholder="Projektname"><input id="pd" placeholder="Beschreibung"><button class="btn" id="padd">Anlegen</button></div></div>
+ <div class="grid" id="pl"></div>
+</section>
+</main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/projekte.js"></script>
+<script src="js/start.js"></script>
+</body>
+<!-- 
+                    _,)
+            _..._.-;-'
+         .-'     `(
+        /      ;   \
+       ;.' ;`  ,;  ;
+      .'' ``. (  \ ;
+     / f_ _L \ ;  )\
+     \/|` '|\/;; <;/
+    ((; \_/  (()       Fynn Wintzen - 01.11.2026
+         "
+-->
+</html>
