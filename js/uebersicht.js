@@ -49,7 +49,7 @@ async function news(){ntabs();const box=$("news");
  catch(e){box.textContent="Nachrichten konnten nicht geladen werden."}}
 
 /* ---------- Modulares Layout ---------- */
-const W={hero:["Begrüßung",8],year:["Jahresfortschritt",4],tasks:["Aufgaben",6],events:["Termine",6],st1:["Erledigt",3],st2:["Offen",3],st3:["Projekte",3],st4:["Woche",3],news:["Nachrichten",12],habits:["Gewohnheiten",6],focus:["Fokus-Timer",4]};
+const W={hero:["Begrüßung",8],year:["Jahresfortschritt",4],tasks:["Aufgaben",6],events:["Termine",6],st1:["Erledigt",3],st2:["Offen",3],st3:["Projekte",3],st4:["Woche",3],news:["Nachrichten",12],habits:["Gewohnheiten",6],focus:["Fokus-Timer",4],school:["Schule: Jetzt & Danach",6],due:["Hausaufgaben & Klausuren",6]};
 const SZ=[3,4,6,8,12],dg=$("dg");
 Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l.id===id))S.layout.push({id,c:W[id][1],on:1})});
 S.layout=S.layout.filter(l=>W[l.id]);
@@ -91,5 +91,20 @@ $("fs").onclick=()=>{if(tm){clearInterval(tm);tm=null;$("fs").textContent="Weite
 $("fr").onclick=()=>{clearInterval(tm);tm=null;left=1500;$("ft").textContent="25:00";$("fs").textContent="Start"};
 
 onRender(()=>{Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l.id===id))S.layout.push({id,c:W[id][1],on:1})});S.layout=S.layout.filter(l=>W[l.id]);
- tick();progress();tasks();events();gcal();layout();habits();fc()});
+ tick();progress();tasks();events();gcal();layout();habits();fc();school();due()});
 news();
+
+/* ---------- Schule ---------- */
+function school(){const n=new Date(),d=(n.getDay()+6)%7,m=n.getHours()*60+n.getMinutes();
+ if(d>4){$("sc").innerHTML='<p class="muted">Wochenende – kein Unterricht 🎉</p>';return}
+ const T=(S.ttTimes&&S.ttTimes.length?S.ttTimes:DEFT).map(t=>{const p=String(t).match(/(\d+):(\d+)\s*-\s*(\d+):(\d+)/);return p?[+p[1]*60+ +p[2],+p[3]*60+ +p[4],p[3]+":"+p[4],p[1]+":"+p[2]]:null});
+ const sub=r=>(S.tt[r+"-"+d]||"").trim();let cur=-1,nxt=-1;
+ for(let r=0;r<T.length;r++){if(!T[r]||!sub(r))continue;if(m>=T[r][0]&&m<T[r][1])cur=r;if(T[r][0]>m&&nxt<0)nxt=r}
+ let o=cur>=0?`<div class="ev"><b>Jetzt</b><span>${esc(sub(cur))} bis ${T[cur][2]}</span></div>`:'<div class="ev"><b>Jetzt</b><span class="muted">Gerade kein Unterricht</span></div>';
+ o+=nxt>=0?`<div class="ev"><b>Danach</b><span>${esc(sub(nxt))} um ${T[nxt][3]}</span></div>`:'<div class="ev"><b>Danach</b><span class="muted">Heute nichts mehr ✓</span></div>';
+ $("sc").innerHTML=o}
+setInterval(school,60000);
+function due(){const hw=(S.hw||[]).filter(h=>!h.done).sort((a,b)=>(a.d||"9").localeCompare(b.d||"9")).slice(0,4);
+ const ex=(S.exams||[]).filter(e=>daysTo(e.d)>=0).sort((a,b)=>a.d.localeCompare(b.d)).slice(0,3);
+ $("du").innerHTML=ex.map(e=>`<div class="ev"><b>Klausur</b><span>${esc(e.s)} – ${dl(daysTo(e.d))}</span></div>`).join("")+
+  hw.map(h=>`<div class="ev"><b>Aufgabe</b><span>${esc(h.s)}: ${esc(h.t)}${h.d?" – "+dl(daysTo(h.d)):""}</span></div>`).join("")||'<p class="muted">Nichts Anstehendes 🎉</p>'}

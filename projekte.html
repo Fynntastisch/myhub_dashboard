@@ -20,6 +20,7 @@
  <a class="ni on" href="projekte.html"><i>▣</i><span>Projekte</span></a>
  <a class="ni" href="kalender.html"><i>▦</i><span>Kalender</span></a>
  <a class="ni" href="notizen.html"><i>✎</i><span>Notizen</span></a>
+ <a class="ni" href="schule.html"><i>❖</i><span>Schule</span></a>
  <div class="nlabel">Weiteres</div>
  <a class="ni" href="einstellungen.html"><i>⚙</i><span>Einstellungen</span></a>
  <button class="prof" id="prof"><span class="av" id="av">?</span><div><b id="pname">Dein Name</b><small>Einstellungen</small></div></button>
@@ -27,9 +28,20 @@
 <main>
 <div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div></div>
 <section class="page on">
+<div id="pwrap">
  <div class="top"><h1>Projekte</h1></div>
  <div class="card" style="margin-bottom:18px"><div class="add" style="margin:0"><input id="pn" placeholder="Projektname"><input id="pd" placeholder="Beschreibung"><button class="btn" id="padd">Anlegen</button></div></div>
  <div class="grid" id="pl"></div>
+</div>
+<div id="pv" style="display:none"></div>
+<div class="modal" id="tm"><div class="card mc"><h3>Aufgabe</h3>
+ <input id="mt" placeholder="Titel">
+ <div class="mrow"><select id="ms"><option value="0">Zu erledigen</option><option value="1">In Arbeit</option><option value="2">Erledigt</option></select><select id="mp"><option value="0">Niedrig</option><option value="1">Mittel</option><option value="2">Hoch</option></select><input id="md" type="date" style="margin:0"></div>
+ <input id="ml" placeholder="Label (z. B. Schule, Privat)">
+ <textarea id="mn" rows="3" placeholder="Notizen"></textarea>
+ <h3>Checkliste</h3><ul id="mcl"></ul><div class="add"><input id="mci" placeholder="Punkt hinzufügen …"><button class="btn" id="mca">+</button></div>
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px"><button class="x" id="mdel">🗑 Löschen</button><button class="btn" id="mok">Fertig</button></div>
+</div></div>
 </section>
 </main>
 </div>
@@ -48,7 +60,7 @@
       .'' ``. (  \ ;
      / f_ _L \ ;  )\
      \/|` '|\/;; <;/
-    ((; \_/  (()       Fynn Wintzen - 01.11.2026
+    ((; \_/  (()       Fynn Wintzen - 21.11.2026
          "
 -->
 </html>
