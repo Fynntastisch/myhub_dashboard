@@ -74,3 +74,7 @@ body.open nav{transform:none}body.open .scrim{display:block}
 body.mini nav .ni span,body.mini .nlabel,body.mini .logo .lt{display:inline}body.mini .prof div{display:block}body.mini .prof{justify-content:flex-start;padding:12px}
 body.mini nav .ni{justify-content:flex-start;padding:11px 14px}body.mini .logo{justify-content:space-between;padding:0 6px 22px 12px}
 .mtop{display:flex}main{padding:16px 14px 30px}.hero,.s4,.s6,.s3,.pj{grid-column:span 12}.clock{font-size:2.8rem}}
+
+#login .logo{display:block;letter-spacing:.5px}
+.kbox{border:1px solid var(--line);border-radius:14px;padding:18px;min-height:90px;background:rgba(0,0,0,.25)}
+.gr{margin-right:10px;white-space:nowrap}

@@ -1,9 +1,12 @@
 /* core.js – gemeinsame Grundfunktionen: Daten, Speichern, Sidebar, Login, Cloud-Sync */
 const $=id=>document.getElementById(id);
-let S={name:"",cal:"",key:"",tasks:[],projects:[],events:[],notes:"",tt:{},layout:[],habits:[],focus:{d:"",n:0}};
+let S={name:"",cal:"",key:"",tasks:[],projects:[],events:[],notes:"",tt:{},layout:[],habits:[],focus:{d:"",n:0},hw:[],exams:[],grades:[],cards:[],ttTimes:[]};
 try{S={...S,...JSON.parse(localStorage.getItem("hub")||"{}")}}catch(e){}
 let sb=null,uid=null,cloudOn=false,pt;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const DEFT=["08:00-08:45","08:45-09:30","09:50-10:35","10:35-11:20","11:40-12:25","12:25-13:10","13:30-14:15","14:15-15:00"];
+const daysTo=d=>{const t=new Date();t.setHours(0,0,0,0);return Math.round((new Date(d+"T00:00:00")-t)/864e5)};
+const dl=n=>n===0?"heute":n===1?"morgen":n<0?"überfällig":"in "+n+" Tg.";
 const mob=()=>matchMedia("(max-width:900px)").matches;
 
 /* Seiten registrieren ihre Zeichenfunktion mit onRender(); renderAll() läuft beim Start und nach dem Cloud-Laden */
