@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planer – MyHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="login"><div class="card"><div class="logo" style="padding:0 0 14px">MY<b>/</b>HUB</div><h1>Willkommen zurück</h1><p class="muted">Melde dich an, um dein Dashboard zu öffnen.</p>
+<input id="lm" type="email" placeholder="E-Mail" autocomplete="username"><input id="lp" type="password" placeholder="Passwort" autocomplete="current-password"><button class="btn" id="lb">Anmelden</button><div id="lerr"></div></div></div>
+<div class="scrim" id="scrim"></div>
+<div class="app">
+<nav>
+ <div class="logo"><span class="lt">MY<b>/</b>HUB</span><button class="tgl" id="tgl" title="Menü ein-/ausklappen">⇤</button></div>
+ <div class="nlabel">Hauptmenü</div>
+ <a class="ni" href="index.html"><i>◈</i><span>Übersicht</span></a>
+ <a class="ni" href="projekte.html"><i>▣</i><span>Projekte</span></a>
+ <a class="ni" href="kalender.html"><i>▦</i><span>Kalender</span></a>
+ <a class="ni" href="notizen.html"><i>✎</i><span>Notizen</span></a>
+ <a class="ni" href="schule.html"><i>❖</i><span>Schule</span></a>
+ <a class="ni on" href="planer.html"><i>◷</i><span>Planer</span></a>
+ <a class="ni" href="sammlung.html"><i>★</i><span>Sammlung</span></a>
+ <div class="nlabel">Weiteres</div>
+ <a class="ni" href="einstellungen.html"><i>⚙</i><span>Einstellungen</span></a>
+ <button class="prof" id="prof"><span class="av" id="av">?</span><div><b id="pname">Dein Name</b><small>Einstellungen</small></div></button>
+</nav>
+<main>
+<div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div></div>
+<section class="page on">
+<div class="top"><h1>Planer</h1></div>
+<div class="grid">
+ <div class="card s6"><div style="display:flex;justify-content:space-between;align-items:center"><h3 id="pdt" style="margin:0">Heute</h3><div class="add" style="margin:0"><button class="x" id="pprev">‹</button><button class="btn" id="ptoday">Heute</button><button class="x" id="pnext">›</button></div></div>
+  <div id="pbl" style="margin-top:14px"></div>
+  <div class="add"><input id="bs" type="time" style="max-width:115px"><input id="be" type="time" style="max-width:115px"><input id="bt" placeholder="Was?"><button class="btn" id="ba">+</button></div></div>
+ <div class="card s6"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Wochenrückblick</h3><div class="add" style="margin:0"><button class="x" id="wprev">‹</button><button class="x" id="wnext">›</button></div></div>
+  <p class="muted" id="wlbl" style="margin:10px 0 4px"></p><p id="wst" style="margin-bottom:14px"></p>
+  <h3>Was lief gut?</h3><textarea id="wg" rows="3"></textarea>
+  <h3 style="margin-top:12px">Was lief nicht gut?</h3><textarea id="wb" rows="3"></textarea>
+  <h3 style="margin-top:12px">Ziele für nächste Woche</h3><textarea id="wz" rows="3"></textarea></div>
+</div>
+</section>
+</main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/planer.js"></script>
+<script src="js/start.js"></script>
+</body>
+<!-- 
+                    _,)
+            _..._.-;-'
+         .-'     `(
+        /      ;   \
+       ;.' ;`  ,;  ;
+      .'' ``. (  \ ;
+     / f_ _L \ ;  )\
+     \/|` '|\/;; <;/
+    ((; \_/  (()       Fynn Wintzen - 21.11.2026
+         "
+-->
+</html>

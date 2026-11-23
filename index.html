@@ -21,6 +21,8 @@
  <a class="ni" href="kalender.html"><i>▦</i><span>Kalender</span></a>
  <a class="ni" href="notizen.html"><i>✎</i><span>Notizen</span></a>
  <a class="ni" href="schule.html"><i>❖</i><span>Schule</span></a>
+ <a class="ni" href="planer.html"><i>◷</i><span>Planer</span></a>
+ <a class="ni" href="sammlung.html"><i>★</i><span>Sammlung</span></a>
  <div class="nlabel">Weiteres</div>
  <a class="ni" href="einstellungen.html"><i>⚙</i><span>Einstellungen</span></a>
  <button class="prof" id="prof"><span class="av" id="av">?</span><div><b id="pname">Dein Name</b><small>Einstellungen</small></div></button>
@@ -36,7 +38,8 @@
    <svg class="ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10"/><circle id="yr" cx="60" cy="60" r="50" fill="none" stroke="#a45cff" stroke-width="10" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)" style="filter:drop-shadow(0 0 6px #a45cff)"/><text id="yrt" x="60" y="67" text-anchor="middle" fill="#fff" font-size="22" font-family="Space Grotesk" font-weight="700"></text></svg>
    <p class="muted" id="yrs" style="text-align:center;margin-top:8px"></p></div>
   <div class="card s6 w" data-w="tasks"><h3>Aufgaben</h3><ul id="tl"></ul>
-   <div class="add"><input id="tin" placeholder="Neue Aufgabe …"><button class="btn" id="tadd">+</button></div></div>
+   <div class="add"><input id="tin" placeholder="Neue Aufgabe …"><button class="btn" id="tadd">+</button></div>
+   <div class="add" style="margin-top:8px"><select id="tpr"><option value="0">Prio niedrig</option><option value="1" selected>Prio mittel</option><option value="2">Prio hoch</option></select><input id="tdd" type="date"><select id="trp"><option value="">einmalig</option><option value="d">täglich</option><option value="w">wöchentlich</option><option value="m">monatlich</option></select></div></div>
   <div class="card s6 w" data-w="events"><h3>Anstehende Termine</h3><div id="evl"></div></div>
   <div class="card s3 stat w" data-w="st1"><h3>Erledigt</h3><div class="big" id="s1"></div><div class="bar"><i id="b1"></i></div><small>der Aufgaben</small></div>
   <div class="card s3 stat w" data-w="st2"><h3>Offen</h3><div class="big" id="s2"></div><small>Aufgaben</small></div>
@@ -45,6 +48,7 @@
   <div class="card s12 news w" data-w="news"><h3>Aktuelle Nachrichten</h3><div class="ntabs" id="ntabs"></div><div id="news" class="ngrid muted">Lade …</div></div>
   <div class="card w" data-w="school"><h3>Schule: Jetzt &amp; Danach</h3><div id="sc"></div></div>
   <div class="card w" data-w="due"><h3>Hausaufgaben &amp; Klausuren</h3><div id="du"></div></div>
+  <div class="card w" data-w="plan"><h3>Heute geplant</h3><div id="pl2"></div></div>
   <div class="card w" data-w="habits"><h3>Gewohnheiten</h3><ul id="hl"></ul><div class="add"><input id="hin" placeholder="Neue Gewohnheit …"><button class="btn" id="hadd">+</button></div></div>
   <div class="card w" data-w="focus"><h3>Fokus-Timer</h3><div class="big" id="ft" style="font-size:2.8rem;text-align:center">25:00</div><div style="display:flex;gap:8px;justify-content:center;margin:12px 0"><button class="btn" id="fs">Start</button><button class="btn" id="fr" style="background:rgba(255,255,255,.1);box-shadow:none">Reset</button></div><p class="muted" id="fc" style="text-align:center"></p></div>
  </div>
