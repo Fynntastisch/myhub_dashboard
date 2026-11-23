@@ -1,12 +1,18 @@
 /* core.js – gemeinsame Grundfunktionen: Daten, Speichern, Sidebar, Login, Cloud-Sync */
 const $=id=>document.getElementById(id);
-let S={name:"",cal:"",key:"",tasks:[],projects:[],events:[],notes:"",tt:{},layout:[],habits:[],focus:{d:"",n:0},hw:[],exams:[],grades:[],cards:[],ttTimes:[]};
+let S={name:"",cal:"",key:"",tasks:[],projects:[],events:[],notes:"",tt:{},layout:[],habits:[],focus:{d:"",n:0},hw:[],exams:[],grades:[],cards:[],ttTimes:[],blocks:[],reviews:{},marks:[],watch:[],log:[]};
 try{S={...S,...JSON.parse(localStorage.getItem("hub")||"{}")}}catch(e){}
 let sb=null,uid=null,cloudOn=false,pt;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const DEFT=["08:00-08:45","08:45-09:30","09:50-10:35","10:35-11:20","11:40-12:25","12:25-13:10","13:30-14:15","14:15-15:00"];
 const daysTo=d=>{const t=new Date();t.setHours(0,0,0,0);return Math.round((new Date(d+"T00:00:00")-t)/864e5)};
 const dl=n=>n===0?"heute":n===1?"morgen":n<0?"überfällig":"in "+n+" Tg.";
+const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const addD=(s,n)=>{const d=new Date(s+"T00:00:00");d.setDate(d.getDate()+n);return ymd(d)};
+const addM=(s,n)=>{const d=new Date(s+"T00:00:00");d.setMonth(d.getMonth()+n);return ymd(d)};
+const nextDue=t=>{const n=ymd(new Date()),b=t.d&&t.d>n?t.d:n;return t.rep==="d"?addD(b,1):t.rep==="w"?addD(b,7):addM(b,1)};
+const logDone=t=>{(S.log=S.log||[]).push({t,d:ymd(new Date())});if(S.log.length>300)S.log.splice(0,S.log.length-300)};
+const unlog=t=>{const l=S.log||[];for(let i=l.length-1;i>=0;i--)if(l[i].t===t){l.splice(i,1);break}};
 const mob=()=>matchMedia("(max-width:900px)").matches;
 
 /* Seiten registrieren ihre Zeichenfunktion mit onRender(); renderAll() läuft beim Start und nach dem Cloud-Laden */

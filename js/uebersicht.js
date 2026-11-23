@@ -13,13 +13,14 @@ function progress(){const n=new Date(),y=n.getFullYear(),a=new Date(y,0,1),e=new
 progress();setInterval(progress,60000);
 
 function tasks(){
- $("tl").innerHTML=S.tasks.map((t,i)=>`<li class="row ${t.done?"done":""}"><input type="checkbox" ${t.done?"checked":""} onchange="tg(${i})"><span>${esc(t.t)}</span><button class="x" onclick="td(${i})">×</button></li>`).join("")||'<p class="muted">Keine Aufgaben – genieß den Tag.</p>';
+ const PRC=["#9ca3af","#facc15","#f87171"],t0=ymd(new Date());
+ $("tl").innerHTML=S.tasks.map((t,i)=>({...t,i})).sort((a,b)=>(a.done-b.done)||((b.pr??1)-(a.pr??1))||((a.d||"9").localeCompare(b.d||"9"))).map(t=>`<li class="row ${t.done?"done":""}"><input type="checkbox" ${t.done?"checked":""} onchange="tg(${t.i})"><span>${esc(t.t)}</span><span style="flex:none;color:${PRC[t.pr??1]}" title="Priorität">●</span>${t.d?`<small class="muted" style="${t.d<t0&&!t.done?"color:#f87171":""}">${dl(daysTo(t.d))}</small>`:""}${t.rep?'<small title="wiederkehrend">🔁</small>':""}<button class="x" onclick="td(${t.i})">×</button></li>`).join("")||'<p class="muted">Keine Aufgaben – genieß den Tag.</p>';
  const d=S.tasks.filter(t=>t.done).length,n=S.tasks.length;
  $("s1").textContent=d+"/"+n;$("b1").style.width=(n?d/n*100:0)+"%";$("s2").textContent=n-d;
  $("s3").textContent=S.projects.length;$("s3s").textContent=S.projects.filter(p=>p.p<100).length+" aktiv"}
-window.tg=i=>{S.tasks[i].done=!S.tasks[i].done;save();tasks()};
+window.tg=i=>{const t=S.tasks[i];if(!t.done){logDone(t.t);if(t.rep)t.d=nextDue(t);else t.done=true}else{t.done=false;unlog(t.t)}save();tasks()};
 window.td=i=>{S.tasks.splice(i,1);save();tasks()};
-$("tadd").onclick=()=>{const v=$("tin").value.trim();if(!v)return;S.tasks.push({t:v,done:false});$("tin").value="";save();tasks()};
+$("tadd").onclick=()=>{const v=$("tin").value.trim();if(!v)return;S.tasks.push({t:v,done:false,pr:+$("tpr").value,d:$("tdd").value,rep:$("trp").value});$("tin").value=$("tdd").value="";$("trp").value="";save();tasks()};
 $("tin").onkeydown=e=>{if(e.key==="Enter")$("tadd").click()};
 
 
@@ -49,7 +50,7 @@ async function news(){ntabs();const box=$("news");
  catch(e){box.textContent="Nachrichten konnten nicht geladen werden."}}
 
 /* ---------- Modulares Layout ---------- */
-const W={hero:["Begrüßung",8],year:["Jahresfortschritt",4],tasks:["Aufgaben",6],events:["Termine",6],st1:["Erledigt",3],st2:["Offen",3],st3:["Projekte",3],st4:["Woche",3],news:["Nachrichten",12],habits:["Gewohnheiten",6],focus:["Fokus-Timer",4],school:["Schule: Jetzt & Danach",6],due:["Hausaufgaben & Klausuren",6]};
+const W={hero:["Begrüßung",8],year:["Jahresfortschritt",4],tasks:["Aufgaben",6],events:["Termine",6],st1:["Erledigt",3],st2:["Offen",3],st3:["Projekte",3],st4:["Woche",3],news:["Nachrichten",12],habits:["Gewohnheiten",6],focus:["Fokus-Timer",4],school:["Schule: Jetzt & Danach",6],due:["Hausaufgaben & Klausuren",6],plan:["Heute geplant",6]};
 const SZ=[3,4,6,8,12],dg=$("dg");
 Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l.id===id))S.layout.push({id,c:W[id][1],on:1})});
 S.layout=S.layout.filter(l=>W[l.id]);
@@ -73,7 +74,6 @@ $("editb").onclick=()=>{const on=document.body.classList.toggle("edit");$("editb
 $("lrst").onclick=()=>{S.layout=Object.keys(W).map(id=>({id,c:W[id][1],on:1}));save();layout()};
 
 /* ---------- Gewohnheiten ---------- */
-const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 function habits(){const t=ymd(new Date()),days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);return ymd(d)});
  $("hl").innerHTML=S.habits.map((h,i)=>{let st=0,d=new Date();if(!h.log[t])d.setDate(d.getDate()-1);while(h.log[ymd(d)]){st++;d.setDate(d.getDate()-1)}
   return `<li class="row"><span>${esc(h.n)}</span><div>${days.map(x=>`<i class="dot ${h.log[x]?"on":""} ${x===t?"t":""}" onclick="hg(${i},'${x}')"></i>`).join("")}</div><small class="muted" style="min-width:34px;text-align:right">🔥${st}</small><button class="x" onclick="hd(${i})">×</button></li>`}).join("")||'<p class="muted">Lege deine erste Gewohnheit an.</p>'}
@@ -91,7 +91,7 @@ $("fs").onclick=()=>{if(tm){clearInterval(tm);tm=null;$("fs").textContent="Weite
 $("fr").onclick=()=>{clearInterval(tm);tm=null;left=1500;$("ft").textContent="25:00";$("fs").textContent="Start"};
 
 onRender(()=>{Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l.id===id))S.layout.push({id,c:W[id][1],on:1})});S.layout=S.layout.filter(l=>W[l.id]);
- tick();progress();tasks();events();gcal();layout();habits();fc();school();due()});
+ tick();progress();tasks();events();gcal();layout();habits();fc();school();due();today()});
 news();
 
 /* ---------- Schule ---------- */
@@ -108,3 +108,9 @@ function due(){const hw=(S.hw||[]).filter(h=>!h.done).sort((a,b)=>(a.d||"9").loc
  const ex=(S.exams||[]).filter(e=>daysTo(e.d)>=0).sort((a,b)=>a.d.localeCompare(b.d)).slice(0,3);
  $("du").innerHTML=ex.map(e=>`<div class="ev"><b>Klausur</b><span>${esc(e.s)} – ${dl(daysTo(e.d))}</span></div>`).join("")+
   hw.map(h=>`<div class="ev"><b>Aufgabe</b><span>${esc(h.s)}: ${esc(h.t)}${h.d?" – "+dl(daysTo(h.d)):""}</span></div>`).join("")||'<p class="muted">Nichts Anstehendes 🎉</p>'}
+
+/* ---------- Heute geplant (aus dem Planer) ---------- */
+function today(){const t=ymd(new Date()),n=new Date(),now=String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0");
+ const L=(S.blocks||[]).filter(b=>b.d===t).sort((a,b)=>a.s.localeCompare(b.s));
+ $("pl2").innerHTML=L.map(b=>`<div class="ev" style="${b.s<=now&&now<b.e?"background:rgba(164,92,255,.15);border-radius:10px;padding-left:8px":""}${b.done?";opacity:.5":""}"><b>${b.s}–${b.e}</b><span>${esc(b.t)}</span></div>`).join("")||'<p class="muted">Heute noch nichts geplant – im Planer Zeitblöcke anlegen.</p>'}
+setInterval(today,60000);
