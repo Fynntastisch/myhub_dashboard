@@ -41,7 +41,7 @@ $("scrim").onclick=()=>document.body.classList.remove("open");
 /* Login & Cloud (Supabase) */
 async function startCloud(ses){uid=ses.user.id;
  const{data,error}=await sb.from("user_data").select("data").eq("user_id",uid).maybeSingle();
- if(error){$("lerr").textContent="Daten konnten nicht geladen werden: "+error.message;return false}
+ if(error){$("login").style.display="grid";$("lerr").textContent="Daten konnten nicht geladen werden: "+error.message;return false}
  const has=data&&data.data&&Object.keys(data.data).length;
  if(has){S={...S,...data.data};try{localStorage.setItem("hub",JSON.stringify(S))}catch(e){}renderAll()}
  cloudOn=true;if(!has)push();
@@ -57,11 +57,13 @@ const lo=$("lo");if(lo)lo.onclick=async()=>{clearTimeout(pt);cloudOn=false;
  location.replace("index.html")};
 async function initAuth(){
  if(SUPA_URL.startsWith("DEINE"))return; /* lokaler Modus ohne Login */
- $("login").style.display="grid";
- if(!window.supabase){$("lerr").textContent="Supabase-Bibliothek konnte nicht geladen werden.";return}
+ /* Login-Fenster nur zeigen, wenn keine gespeicherte Anmeldung vorhanden ist – so gibt es kein Aufblitzen beim Seitenwechsel */
+ let has=false;try{has=Object.keys(localStorage).some(k=>k.startsWith("sb-")&&k.includes("auth-token"))}catch(e){}
+ if(!has)$("login").style.display="grid";
+ if(!window.supabase){$("login").style.display="grid";$("lerr").textContent="Supabase-Bibliothek konnte nicht geladen werden.";return}
  sb=window.supabase.createClient(SUPA_URL,SUPA_KEY);
  const{data}=await sb.auth.getSession();
- if(data.session)await startCloud(data.session)}
+ if(data.session)await startCloud(data.session);else $("login").style.display="grid"}
 
 /* Farbthema */
 const THEMES={purple:["#a45cff","#6d28d9","164,92,255","109,40,217"],blue:["#4d9bff","#1d4ed8","77,155,255","29,78,216"],green:["#34d399","#047857","52,211,153","4,120,87"],pink:["#f472b6","#be185d","244,114,182","190,24,93"],orange:["#fb923c","#c2410c","251,146,60","194,65,12"]};
