@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Übersicht – MyHub</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<meta name="theme-color" content="#07050c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261124d">
+<link rel="stylesheet" href="css/style.css?v=20261125c">
 </head>
 <body>
 <div id="login"><div class="card"><div class="logo" style="padding:0 0 14px">MY<b>/</b>HUB</div><h1>Willkommen zurück</h1><p class="muted">Melde dich an, um dein Dashboard zu öffnen.</p>
@@ -15,6 +19,7 @@
 <div class="app">
 <nav>
  <div class="logo"><span class="lt">MY<b>/</b>HUB</span><button class="tgl" id="tgl" title="Menü ein-/ausklappen">⇤</button></div>
+ <button class="ni" id="sbtn2"><i>🔍</i><span>Suche <small style="opacity:.6">Strg+K</small></span></button>
  <div class="nlabel">Hauptmenü</div>
  <a class="ni on" href="index.html"><i>◈</i><span>Übersicht</span></a>
  <a class="ni" href="projekte.html"><i>▣</i><span>Projekte</span></a>
@@ -30,7 +35,7 @@
  <button class="prof" id="prof"><span class="av" id="av">?</span><div><b id="pname">Dein Name</b><small>Einstellungen</small></div></button>
 </nav>
 <main>
-<div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div></div>
+<div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div><button class="tgl" id="sbtn" style="margin-left:auto" title="Suche">🔍</button></div>
 <section class="page on">
  <div class="top"><h1>Übersicht</h1><button class="btn" id="editb">✎ Anpassen</button></div>
  <div class="card" id="lib"><h3>Widget-Bibliothek – ziehe Widgets per Maus oder nutze die Pfeile (‹ ›), ↔ ändert die Breite</h3><div id="libl"></div><button class="btn" id="lrst" style="margin-top:10px;background:none;border:1px solid var(--line);box-shadow:none">Layout zurücksetzen</button></div>
@@ -50,6 +55,7 @@
   <div class="card s12 news w" data-w="news"><h3>Aktuelle Nachrichten</h3><div class="ntabs" id="ntabs"></div><div id="news" class="ngrid muted">Lade …</div></div>
   <div class="card w" data-w="school"><h3>Schule: Jetzt &amp; Danach</h3><div id="sc"></div></div>
   <div class="card w" data-w="due"><h3>Hausaufgaben &amp; Klausuren</h3><div id="du"></div></div>
+  <div class="card w" data-w="weather"><h3>Wetter</h3><div id="wx" class="muted">Lade …</div></div>
   <div class="card w" data-w="plan"><h3>Heute geplant</h3><div id="pl2"></div></div>
   <div class="card w" data-w="habits"><h3>Gewohnheiten</h3><ul id="hl"></ul><div class="add"><input id="hin" placeholder="Neue Gewohnheit …"><button class="btn" id="hadd">+</button></div></div>
   <div class="card w" data-w="focus"><h3>Fokus-Timer</h3><div class="big" id="ft" style="font-size:2.8rem;text-align:center">25:00</div><div style="display:flex;gap:8px;justify-content:center;margin:12px 0"><button class="btn" id="fs">Start</button><button class="btn" id="fr" style="background:rgba(255,255,255,.1);box-shadow:none">Reset</button></div><p class="muted" id="fc" style="text-align:center"></p></div>
@@ -58,10 +64,11 @@
 </main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
-<script src="js/config.js?v=20261124d"></script>
-<script src="js/core.js?v=20261124d"></script>
-<script src="js/uebersicht.js?v=20261124d"></script>
-<script src="js/start.js?v=20261124d"></script>
+<script src="js/config.js?v=20261125c"></script>
+<script src="js/core.js?v=20261125c"></script>
+<script src="js/uebersicht.js?v=20261125c"></script>
+<script src="js/suche.js?v=20261125c"></script>
+<script src="js/start.js?v=20261125c"></script>
 </body>
 <!-- 
                     _,)

@@ -50,7 +50,7 @@ async function news(){ntabs();const box=$("news");
  catch(e){box.textContent="Nachrichten konnten nicht geladen werden."}}
 
 /* ---------- Modulares Layout ---------- */
-const W={hero:["Begrüßung",8],year:["Jahresfortschritt",4],tasks:["Aufgaben",6],events:["Termine",6],st1:["Erledigt",3],st2:["Offen",3],st3:["Projekte",3],st4:["Woche",3],news:["Nachrichten",12],habits:["Gewohnheiten",6],focus:["Fokus-Timer",4],school:["Schule: Jetzt & Danach",6],due:["Hausaufgaben & Klausuren",6],plan:["Heute geplant",6]};
+const W={hero:["Begrüßung",8],year:["Jahresfortschritt",4],tasks:["Aufgaben",6],events:["Termine",6],st1:["Erledigt",3],st2:["Offen",3],st3:["Projekte",3],st4:["Woche",3],news:["Nachrichten",12],habits:["Gewohnheiten",6],focus:["Fokus-Timer",4],school:["Schule: Jetzt & Danach",6],due:["Hausaufgaben & Klausuren",6],plan:["Heute geplant",6],weather:["Wetter",6]};
 const SZ=[3,4,6,8,12],dg=$("dg");
 S.layout=(Array.isArray(S.layout)?S.layout:[]).filter(l=>l&&W[l.id]);
 Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l&&l.id===id))S.layout.push({id,c:W[id][1],on:1})});
@@ -93,7 +93,7 @@ $("fr").onclick=()=>{clearInterval(tm);tm=null;left=1500;$("ft").textContent="25
 
 onRender(()=>{S.layout=(Array.isArray(S.layout)?S.layout:[]).filter(l=>l&&W[l.id]);
 Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l&&l.id===id))S.layout.push({id,c:W[id][1],on:1})});S.layout=(Array.isArray(S.layout)?S.layout:[]).filter(l=>l&&W[l.id]);
- tick();progress();tasks();events();gcal();layout();habits();fc();school();due();today()});
+ tick();progress();tasks();events();gcal();layout();habits();fc();school();due();today();weather()});
 news();
 
 /* ---------- Schule ---------- */
@@ -114,5 +114,16 @@ function due(){const hw=(S.hw||[]).filter(h=>!h.done).sort((a,b)=>(a.d||"9").loc
 /* ---------- Heute geplant (aus dem Planer) ---------- */
 function today(){const t=ymd(new Date()),n=new Date(),now=String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0");
  const L=(S.blocks||[]).filter(b=>b.d===t).sort((a,b)=>a.s.localeCompare(b.s));
- $("pl2").innerHTML=L.map(b=>`<div class="ev" style="${b.s<=now&&now<b.e?"background:rgba(164,92,255,.15);border-radius:10px;padding-left:8px":""}${b.done?";opacity:.5":""}"><b>${b.s}–${b.e}</b><span>${esc(b.t)}</span></div>`).join("")||'<p class="muted">Heute noch nichts geplant – im Planer Zeitblöcke anlegen.</p>'}
+ $("pl2").innerHTML=L.map(b=>`<div class="ev" style="${b.s<=now&&now<b.e?"background:rgba(var(--pr),.15);border-radius:10px;padding-left:8px":""}${b.done?";opacity:.5":""}"><b>${b.s}–${b.e}</b><span>${esc(b.t)}</span></div>`).join("")||'<p class="muted">Heute noch nichts geplant – im Planer Zeitblöcke anlegen.</p>'}
 setInterval(today,60000);
+
+/* ---------- Wetter (Open-Meteo, ohne Schlüssel) ---------- */
+const WC={0:["☀️","Klar"],1:["🌤️","Überwiegend klar"],2:["⛅","Teils bewölkt"],3:["☁️","Bedeckt"],45:["🌫️","Nebel"],51:["🌦️","Nieselregen"],61:["🌧️","Regen"],71:["🌨️","Schnee"],80:["🌦️","Schauer"],95:["⛈️","Gewitter"]};
+const wic=c=>WC[c]||(c>=95?WC[95]:c>=80?WC[80]:c>=71?WC[71]:c>=61?WC[61]:c>=51?WC[51]:c>=45?WC[45]:WC[3]);
+async function weather(){const city=(S.city||"Hennef").trim(),box=$("wx");
+ try{let g=S.geo;if(!g||g.city!==city){const r=await fetch("https://geocoding-api.open-meteo.com/v1/search?name="+encodeURIComponent(city)+"&count=1&language=de");const j=await r.json();if(!j.results)throw 0;g={city,lat:j.results[0].latitude,lon:j.results[0].longitude,name:j.results[0].name};S.geo=g;save()}
+  const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${g.lat}&longitude=${g.lon}&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=5`);
+  const j=await r.json(),c=j.current,d=j.daily;
+  box.innerHTML=`<div class="wx"><div style="font-size:2.8rem">${wic(c.weather_code)[0]}</div><div><div class="big" style="font-size:2rem">${Math.round(c.temperature_2m)}°</div><div class="muted">${wic(c.weather_code)[1]} · ${esc(g.name||city)} · Wind ${Math.round(c.wind_speed_10m)} km/h</div></div></div><div class="wxd">${d.time.map((t,i)=>`<div><b>${i?new Date(t+"T00:00:00").toLocaleDateString("de-DE",{weekday:"short"}):"Heute"}</b><div style="font-size:1.3rem">${wic(d.weather_code[i])[0]}</div>${Math.round(d.temperature_2m_max[i])}° / ${Math.round(d.temperature_2m_min[i])}°<div class="muted">💧${d.precipitation_probability_max[i]??0}%</div></div>`).join("")}</div>`}
+ catch(e){box.innerHTML='<p class="muted">Wetter konnte nicht geladen werden. Ort in den Einstellungen prüfen.</p>'}}
+setInterval(weather,1800000);

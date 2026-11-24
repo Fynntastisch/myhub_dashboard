@@ -48,4 +48,5 @@ const closeT=()=>{$("tm").style.display="none";tc=-1;detail()};
 $("mok").onclick=closeT;
 $("tm").onclick=e=>{if(e.target===$("tm"))closeT()};
 $("mdel").onclick=()=>{P().tasks.splice(tc,1);save();closeT()};
+try{const o=sessionStorage.getItem("openProj");if(o!==null){sessionStorage.removeItem("openProj");cur=+o}}catch(e){}
 onRender(projects);

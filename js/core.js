@@ -41,7 +41,7 @@ $("scrim").onclick=()=>document.body.classList.remove("open");
 /* Login & Cloud (Supabase) */
 async function startCloud(ses){uid=ses.user.id;
  const{data,error}=await sb.from("user_data").select("data").eq("user_id",uid).maybeSingle();
- if(error){$("lerr").textContent="Daten konnten nicht geladen werden: "+error.message;return false}
+ if(error){$("login").style.display="grid";$("lerr").textContent="Daten konnten nicht geladen werden: "+error.message;return false}
  const has=data&&data.data&&Object.keys(data.data).length;
  if(has){S={...S,...data.data};try{localStorage.setItem("hub",JSON.stringify(S))}catch(e){}renderAll()}
  cloudOn=true;if(!has)push();
@@ -51,11 +51,33 @@ async function doLogin(){$("lerr").textContent="";$("lb").disabled=true;
  $("lb").disabled=false;if(error){$("lerr").textContent="Anmeldung fehlgeschlagen. E-Mail oder Passwort stimmt nicht.";return}
  $("lp").value="";await startCloud(data.session)}
 $("lb").onclick=doLogin;$("lp").onkeydown=e=>{if(e.key==="Enter")doLogin()};
-const lo=$("lo");if(lo)lo.onclick=async()=>{await sb.auth.signOut();try{localStorage.removeItem("hub")}catch(e){}location.href="index.html"};
+const lo=$("lo");if(lo)lo.onclick=async()=>{clearTimeout(pt);cloudOn=false;
+ try{await Promise.race([sb.auth.signOut(),new Promise(r=>setTimeout(r,2500))])}catch(e){}
+ try{Object.keys(localStorage).filter(k=>k==="hub"||(k.startsWith("sb-")&&k.includes("auth"))).forEach(k=>localStorage.removeItem(k))}catch(e){}
+ location.replace("index.html")};
 async function initAuth(){
  if(SUPA_URL.startsWith("DEINE"))return; /* lokaler Modus ohne Login */
- $("login").style.display="grid";
- if(!window.supabase){$("lerr").textContent="Supabase-Bibliothek konnte nicht geladen werden.";return}
+ /* Login-Fenster nur zeigen, wenn keine gespeicherte Anmeldung vorhanden ist – so gibt es kein Aufblitzen beim Seitenwechsel */
+ let has=false;try{has=Object.keys(localStorage).some(k=>k.startsWith("sb-")&&k.includes("auth-token"))}catch(e){}
+ if(!has)$("login").style.display="grid";
+ if(!window.supabase){$("login").style.display="grid";$("lerr").textContent="Supabase-Bibliothek konnte nicht geladen werden.";return}
  sb=window.supabase.createClient(SUPA_URL,SUPA_KEY);
  const{data}=await sb.auth.getSession();
- if(data.session)await startCloud(data.session)}
+ if(data.session)await startCloud(data.session);else $("login").style.display="grid"}
+
+/* Farbthema */
+const THEMES={purple:["#a45cff","#6d28d9","164,92,255","109,40,217"],blue:["#4d9bff","#1d4ed8","77,155,255","29,78,216"],green:["#34d399","#047857","52,211,153","4,120,87"],pink:["#f472b6","#be185d","244,114,182","190,24,93"],orange:["#fb923c","#c2410c","251,146,60","194,65,12"]};
+function applyTheme(){const t=THEMES[S.theme]||THEMES.purple,r=document.documentElement.style;r.setProperty("--p",t[0]);r.setProperty("--p2",t[1]);r.setProperty("--pr",t[2]);r.setProperty("--pr2",t[3])}
+applyTheme();onRender(applyTheme);
+
+/* Erinnerungen (nur solange die Seite geöffnet ist) */
+function remind(){if(!S.notify||!("Notification" in window)||Notification.permission!=="granted")return;
+ const n=new Date(),t=ymd(n),hm=String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0");
+ let f=[];try{f=JSON.parse(sessionStorage.getItem("fired")||"[]")}catch(e){}
+ const it=[...(S.blocks||[]).filter(b=>b.d===t&&!b.done).map(b=>({k:"b"+b.id,t:b.s,x:"⏱ "+b.t})),...(S.events||[]).filter(e=>e.d===t&&e.t).map(e=>({k:"e"+e.d+e.t+e.title,t:e.t,x:"📅 "+e.title}))];
+ it.filter(x=>x.t===hm&&!f.includes(x.k)).forEach(x=>{try{new Notification("MyHub",{body:x.x,icon:"img/icon-192.png"})}catch(e){}f.push(x.k)});
+ try{sessionStorage.setItem("fired",JSON.stringify(f))}catch(e){}}
+setInterval(remind,20000);
+
+/* App-Installation / Offline-Stand */
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
