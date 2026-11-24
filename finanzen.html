@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finanzen – MyHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20261124d">
+</head>
+<body>
+<div id="login"><div class="card"><div class="logo" style="padding:0 0 14px">MY<b>/</b>HUB</div><h1>Willkommen zurück</h1><p class="muted">Melde dich an, um dein Dashboard zu öffnen.</p>
+<input id="lm" type="email" placeholder="E-Mail" autocomplete="username"><input id="lp" type="password" placeholder="Passwort" autocomplete="current-password"><button class="btn" id="lb">Anmelden</button><div id="lerr"></div></div></div>
+<div class="scrim" id="scrim"></div>
+<div class="app">
+<nav>
+ <div class="logo"><span class="lt">MY<b>/</b>HUB</span><button class="tgl" id="tgl" title="Menü ein-/ausklappen">⇤</button></div>
+ <div class="nlabel">Hauptmenü</div>
+ <a class="ni" href="index.html"><i>◈</i><span>Übersicht</span></a>
+ <a class="ni" href="projekte.html"><i>▣</i><span>Projekte</span></a>
+ <a class="ni" href="kalender.html"><i>▦</i><span>Kalender</span></a>
+ <a class="ni" href="notizen.html"><i>✎</i><span>Notizen</span></a>
+ <a class="ni" href="schule.html"><i>❖</i><span>Schule</span></a>
+ <a class="ni" href="planer.html"><i>◷</i><span>Planer</span></a>
+ <a class="ni" href="sammlung.html"><i>★</i><span>Sammlung</span></a>
+ <a class="ni" href="gesundheit.html"><i>♥</i><span>Gesundheit</span></a>
+ <a class="ni on" href="finanzen.html"><i>€</i><span>Finanzen</span></a>
+ <div class="nlabel">Weiteres</div>
+ <a class="ni" href="einstellungen.html"><i>⚙</i><span>Einstellungen</span></a>
+ <button class="prof" id="prof"><span class="av" id="av">?</span><div><b id="pname">Dein Name</b><small>Einstellungen</small></div></button>
+</nav>
+<main>
+<div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div></div>
+<section class="page on">
+<div class="top"><h1 id="fmt">Finanzen</h1><div class="add" style="margin:0"><button class="x" id="fprev">‹</button><button class="x" id="fnext">›</button></div></div>
+<div class="grid">
+ <div class="card s12"><div class="sum"><div><h3>Einnahmen</h3><div class="big pos" id="fi"></div></div><div><h3>Ausgaben</h3><div class="big neg" id="fo"></div></div><div><h3>Saldo</h3><div class="big" id="fs"></div></div></div></div>
+ <div class="card s6"><h3>Buchungen</h3><div id="fl"></div>
+  <div class="add"><select id="ft" style="max-width:105px"><option value="out">Ausgabe</option><option value="in">Einnahme</option></select><input id="fa" type="number" step="0.01" min="0" placeholder="Betrag €" style="max-width:105px"><select id="fc" style="max-width:130px"></select></div>
+  <div class="add"><input id="fd" type="date" style="max-width:150px"><input id="fn" placeholder="Notiz (optional)"><button class="btn" id="fadd">+</button></div></div>
+ <div class="card s6"><h3>Ausgaben nach Kategorie</h3><div id="fcat"></div><h3 style="margin-top:20px">Letzte 6 Monate</h3><div id="fch"></div></div>
+ <div class="card s6"><h3>Sparziele</h3><div id="gl"></div>
+  <div class="add"><input id="gn" placeholder="Ziel (z. B. Laptop)"><input id="gt" type="number" min="0" placeholder="Betrag €" style="max-width:110px"><button class="btn" id="ga">+</button></div></div>
+ <div class="card s6"><h3>Abos &amp; Fixkosten</h3><div id="sl"></div><p id="ssum" style="margin:10px 0 0"></p>
+  <div class="add"><input id="sn" placeholder="Name"><input id="sa" type="number" step="0.01" min="0" placeholder="€" style="max-width:90px"><select id="si" style="max-width:110px"><option value="m">monatlich</option><option value="y">jährlich</option></select><button class="btn" id="sadd">+</button></div></div>
+</div>
+</section>
+</main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
+<script src="js/config.js?v=20261124d"></script>
+<script src="js/core.js?v=20261124d"></script>
+<script src="js/finanzen.js?v=20261124d"></script>
+<script src="js/start.js?v=20261124d"></script>
+</body>
+<!-- 
+                    _,)
+            _..._.-;-'
+         .-'     `(
+        /      ;   \
+       ;.' ;`  ,;  ;
+      .'' ``. (  \ ;
+     / f_ _L \ ;  )\
+     \/|` '|\/;; <;/
+    ((; \_/  (()       Fynn Wintzen - 21.11.2026
+         "
+-->
+</html>
