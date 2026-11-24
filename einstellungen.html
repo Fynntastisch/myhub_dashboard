@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Einstellungen – MyHub</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<meta name="theme-color" content="#07050c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261124d">
+<link rel="stylesheet" href="css/style.css?v=20261125a">
 </head>
 <body>
 <div id="login"><div class="card"><div class="logo" style="padding:0 0 14px">MY<b>/</b>HUB</div><h1>Willkommen zurück</h1><p class="muted">Melde dich an, um dein Dashboard zu öffnen.</p>
@@ -15,6 +19,7 @@
 <div class="app">
 <nav>
  <div class="logo"><span class="lt">MY<b>/</b>HUB</span><button class="tgl" id="tgl" title="Menü ein-/ausklappen">⇤</button></div>
+ <button class="ni" id="sbtn2"><i>🔍</i><span>Suche <small style="opacity:.6">Strg+K</small></span></button>
  <div class="nlabel">Hauptmenü</div>
  <a class="ni" href="index.html"><i>◈</i><span>Übersicht</span></a>
  <a class="ni" href="projekte.html"><i>▣</i><span>Projekte</span></a>
@@ -30,7 +35,7 @@
  <button class="prof" id="prof"><span class="av" id="av">?</span><div><b id="pname">Dein Name</b><small>Einstellungen</small></div></button>
 </nav>
 <main>
-<div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div></div>
+<div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div><button class="tgl" id="sbtn" style="margin-left:auto" title="Suche">🔍</button></div>
 <section class="page on">
  <div class="top"><h1>Einstellungen</h1></div>
  <div class="card" style="max-width:640px">
@@ -38,17 +43,22 @@
   <h3 style="margin-top:20px">Google Kalender-ID</h3><input id="sc" placeholder="z. B. deinname@gmail.com">
   <h3 style="margin-top:20px">Google API-Key (optional, für Termine auf der Übersicht)</h3><input id="sk" placeholder="AIza…">
   <p class="muted" style="margin-top:10px">Die Kalender-ID findest du in Google Kalender unter Einstellungen → Kalender integrieren. Für die Terminliste auf der Übersicht muss der Kalender öffentlich sein.</p>
+  <h3 style="margin-top:20px">Ort für das Wetter</h3><input id="sw" placeholder="z. B. Hennef">
+  <h3 style="margin-top:20px">Farbthema</h3><div class="thd" id="thd"></div>
+  <h3 style="margin-top:20px">Erinnerungen</h3><label style="display:flex;gap:10px;align-items:center;color:var(--mut)"><input type="checkbox" id="snt"> Benachrichtigung bei Zeitblöcken und Terminen mit Uhrzeit (nur solange MyHub geöffnet ist)</label>
   <button class="btn" id="ssave" style="margin-top:16px">Speichern</button>
+  <h3 style="margin-top:28px">Backup</h3><div class="add" style="margin-top:0"><button class="btn" id="exp">Daten exportieren</button><label class="btn" style="background:rgba(255,255,255,.1);box-shadow:none;cursor:pointer">Backup einspielen<input type="file" id="imp" accept=".json,application/json" hidden></label></div>
   <div id="acc" style="display:none;margin-top:28px"><h3>Konto</h3><p class="muted" id="sync"></p><button class="btn" id="lo" style="background:rgba(255,255,255,.1);box-shadow:none">Abmelden</button></div>
  </div>
 </section>
 </main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
-<script src="js/config.js?v=20261124d"></script>
-<script src="js/core.js?v=20261124d"></script>
-<script src="js/einstellungen.js?v=20261124d"></script>
-<script src="js/start.js?v=20261124d"></script>
+<script src="js/config.js?v=20261125a"></script>
+<script src="js/core.js?v=20261125a"></script>
+<script src="js/einstellungen.js?v=20261125a"></script>
+<script src="js/suche.js?v=20261125a"></script>
+<script src="js/start.js?v=20261125a"></script>
 </body>
 <!-- 
                     _,)

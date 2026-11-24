@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Planer – MyHub</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<meta name="theme-color" content="#07050c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261124d">
+<link rel="stylesheet" href="css/style.css?v=20261125a">
 </head>
 <body>
 <div id="login"><div class="card"><div class="logo" style="padding:0 0 14px">MY<b>/</b>HUB</div><h1>Willkommen zurück</h1><p class="muted">Melde dich an, um dein Dashboard zu öffnen.</p>
@@ -15,6 +19,7 @@
 <div class="app">
 <nav>
  <div class="logo"><span class="lt">MY<b>/</b>HUB</span><button class="tgl" id="tgl" title="Menü ein-/ausklappen">⇤</button></div>
+ <button class="ni" id="sbtn2"><i>🔍</i><span>Suche <small style="opacity:.6">Strg+K</small></span></button>
  <div class="nlabel">Hauptmenü</div>
  <a class="ni" href="index.html"><i>◈</i><span>Übersicht</span></a>
  <a class="ni" href="projekte.html"><i>▣</i><span>Projekte</span></a>
@@ -30,7 +35,7 @@
  <button class="prof" id="prof"><span class="av" id="av">?</span><div><b id="pname">Dein Name</b><small>Einstellungen</small></div></button>
 </nav>
 <main>
-<div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div></div>
+<div class="mtop"><button class="tgl" id="burger">☰</button><div class="logo"><span class="lt">MY<b>/</b>HUB</span></div><button class="tgl" id="sbtn" style="margin-left:auto" title="Suche">🔍</button></div>
 <section class="page on">
 <div class="top"><h1>Planer</h1></div>
 <div class="grid">
@@ -47,10 +52,11 @@
 </main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
-<script src="js/config.js?v=20261124d"></script>
-<script src="js/core.js?v=20261124d"></script>
-<script src="js/planer.js?v=20261124d"></script>
-<script src="js/start.js?v=20261124d"></script>
+<script src="js/config.js?v=20261125a"></script>
+<script src="js/core.js?v=20261125a"></script>
+<script src="js/planer.js?v=20261125a"></script>
+<script src="js/suche.js?v=20261125a"></script>
+<script src="js/start.js?v=20261125a"></script>
 </body>
 <!-- 
                     _,)

@@ -7,7 +7,7 @@ function plan(){const t=ymd(new Date()),n=new Date(),now=String(n.getHours()).pa
  $("pdt").textContent=day===t?"Heute":new Date(day+"T00:00:00").toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"});
  const L=S.blocks.map((b,i)=>({...b,i})).filter(b=>b.d===day).sort((a,b)=>a.s.localeCompare(b.s));
  const due=S.tasks.filter(x=>!x.done&&x.d===day);
- $("pbl").innerHTML=(L.map(b=>`<div class="ev" style="${day===t&&b.s<=now&&now<b.e?"background:rgba(164,92,255,.15);border-radius:10px;padding-left:8px;":""}${b.done?"opacity:.5":""}"><b style="min-width:105px">${b.s}–${b.e}</b><span style="flex:1;${b.done?"text-decoration:line-through":""}">${esc(b.t)}</span><input type="checkbox" ${b.done?"checked":""} onchange="bk(${b.i})"><button class="x" onclick="bx(${b.i})">×</button></div>`).join("")||'<p class="muted">Noch keine Zeitblöcke für diesen Tag.</p>')+
+ $("pbl").innerHTML=(L.map(b=>`<div class="ev" style="${day===t&&b.s<=now&&now<b.e?"background:rgba(var(--pr),.15);border-radius:10px;padding-left:8px;":""}${b.done?"opacity:.5":""}"><b style="min-width:105px">${b.s}–${b.e}</b><span style="flex:1;${b.done?"text-decoration:line-through":""}">${esc(b.t)}</span><input type="checkbox" ${b.done?"checked":""} onchange="bk(${b.i})"><button class="x" onclick="bx(${b.i})">×</button></div>`).join("")||'<p class="muted">Noch keine Zeitblöcke für diesen Tag.</p>')+
   (due.length?'<h3 style="margin-top:18px">Fällige Aufgaben</h3>'+due.map(x=>`<div class="ev"><b>●</b><span>${esc(x.t)}</span></div>`).join(""):"")}
 window.bk=i=>{S.blocks[i].done=!S.blocks[i].done;save();plan();review()};
 window.bx=i=>{S.blocks.splice(i,1);save();plan();review()};

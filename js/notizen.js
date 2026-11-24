@@ -51,4 +51,4 @@ $("nia").onclick=nia;$("nin").onkeydown=e=>{if(e.key==="Enter")nia()};
 
 onRender(()=>{S.pages=S.pages||[];S.folders=S.folders||[];S.inbox=S.inbox||[];
  if(S.notes&&S.notes.trim()&&!S.pages.length){S.pages.push({id:nid(),t:"Freie Notizen",f:"",c:S.notes,u:Date.now()});S.notes="";save()}
- if(sel&&!pg())sel="";tree();editor();inbox()});
+ if(sel&&!pg())sel="";try{const o=sessionStorage.getItem("openNote");if(o){sessionStorage.removeItem("openNote");if(S.pages.some(p=>p.id===o))sel=o}}catch(e){}tree();editor();inbox()});

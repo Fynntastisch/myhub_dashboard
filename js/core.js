@@ -59,3 +59,20 @@ async function initAuth(){
  sb=window.supabase.createClient(SUPA_URL,SUPA_KEY);
  const{data}=await sb.auth.getSession();
  if(data.session)await startCloud(data.session)}
+
+/* Farbthema */
+const THEMES={purple:["#a45cff","#6d28d9","164,92,255","109,40,217"],blue:["#4d9bff","#1d4ed8","77,155,255","29,78,216"],green:["#34d399","#047857","52,211,153","4,120,87"],pink:["#f472b6","#be185d","244,114,182","190,24,93"],orange:["#fb923c","#c2410c","251,146,60","194,65,12"]};
+function applyTheme(){const t=THEMES[S.theme]||THEMES.purple,r=document.documentElement.style;r.setProperty("--p",t[0]);r.setProperty("--p2",t[1]);r.setProperty("--pr",t[2]);r.setProperty("--pr2",t[3])}
+applyTheme();onRender(applyTheme);
+
+/* Erinnerungen (nur solange die Seite geöffnet ist) */
+function remind(){if(!S.notify||!("Notification" in window)||Notification.permission!=="granted")return;
+ const n=new Date(),t=ymd(n),hm=String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0");
+ let f=[];try{f=JSON.parse(sessionStorage.getItem("fired")||"[]")}catch(e){}
+ const it=[...(S.blocks||[]).filter(b=>b.d===t&&!b.done).map(b=>({k:"b"+b.id,t:b.s,x:"⏱ "+b.t})),...(S.events||[]).filter(e=>e.d===t&&e.t).map(e=>({k:"e"+e.d+e.t+e.title,t:e.t,x:"📅 "+e.title}))];
+ it.filter(x=>x.t===hm&&!f.includes(x.k)).forEach(x=>{try{new Notification("MyHub",{body:x.x,icon:"img/icon-192.png"})}catch(e){}f.push(x.k)});
+ try{sessionStorage.setItem("fired",JSON.stringify(f))}catch(e){}}
+setInterval(remind,20000);
+
+/* App-Installation / Offline-Stand */
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
