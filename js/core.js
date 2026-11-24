@@ -51,7 +51,10 @@ async function doLogin(){$("lerr").textContent="";$("lb").disabled=true;
  $("lb").disabled=false;if(error){$("lerr").textContent="Anmeldung fehlgeschlagen. E-Mail oder Passwort stimmt nicht.";return}
  $("lp").value="";await startCloud(data.session)}
 $("lb").onclick=doLogin;$("lp").onkeydown=e=>{if(e.key==="Enter")doLogin()};
-const lo=$("lo");if(lo)lo.onclick=async()=>{await sb.auth.signOut();try{localStorage.removeItem("hub")}catch(e){}location.href="index.html"};
+const lo=$("lo");if(lo)lo.onclick=async()=>{clearTimeout(pt);cloudOn=false;
+ try{await Promise.race([sb.auth.signOut(),new Promise(r=>setTimeout(r,2500))])}catch(e){}
+ try{Object.keys(localStorage).filter(k=>k==="hub"||(k.startsWith("sb-")&&k.includes("auth"))).forEach(k=>localStorage.removeItem(k))}catch(e){}
+ location.replace("index.html")};
 async function initAuth(){
  if(SUPA_URL.startsWith("DEINE"))return; /* lokaler Modus ohne Login */
  $("login").style.display="grid";
