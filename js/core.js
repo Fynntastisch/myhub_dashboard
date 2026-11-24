@@ -1,4 +1,6 @@
 /* core.js – gemeinsame Grundfunktionen: Daten, Speichern, Sidebar, Login, Cloud-Sync */
+/* Diagnose: zeigt JavaScript-Fehler als rote Leiste am unteren Rand an */
+window.addEventListener("error",e=>{const b=document.createElement("div");b.style.cssText="position:fixed;bottom:0;left:0;right:0;z-index:999;background:#7f1d1d;color:#fff;padding:8px 14px;font:12px monospace";b.textContent="Fehler: "+e.message+" ("+String(e.filename).split("/").pop()+":"+e.lineno+")";(document.body||document.documentElement).appendChild(b)});
 const $=id=>document.getElementById(id);
 let S={name:"",cal:"",key:"",tasks:[],projects:[],events:[],notes:"",tt:{},layout:[],habits:[],focus:{d:"",n:0},hw:[],exams:[],grades:[],cards:[],ttTimes:[],blocks:[],reviews:{},marks:[],watch:[],log:[]};
 try{S={...S,...JSON.parse(localStorage.getItem("hub")||"{}")}}catch(e){}

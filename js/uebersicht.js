@@ -52,16 +52,17 @@ async function news(){ntabs();const box=$("news");
 /* ---------- Modulares Layout ---------- */
 const W={hero:["Begrüßung",8],year:["Jahresfortschritt",4],tasks:["Aufgaben",6],events:["Termine",6],st1:["Erledigt",3],st2:["Offen",3],st3:["Projekte",3],st4:["Woche",3],news:["Nachrichten",12],habits:["Gewohnheiten",6],focus:["Fokus-Timer",4],school:["Schule: Jetzt & Danach",6],due:["Hausaufgaben & Klausuren",6],plan:["Heute geplant",6]};
 const SZ=[3,4,6,8,12],dg=$("dg");
-Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l.id===id))S.layout.push({id,c:W[id][1],on:1})});
-S.layout=S.layout.filter(l=>W[l.id]);
+S.layout=(Array.isArray(S.layout)?S.layout:[]).filter(l=>l&&W[l.id]);
+Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l&&l.id===id))S.layout.push({id,c:W[id][1],on:1})});
+S.layout=(Array.isArray(S.layout)?S.layout:[]).filter(l=>l&&W[l.id]);
 dg.querySelectorAll("[data-w]").forEach(el=>{el.insertAdjacentHTML("afterbegin",'<div class="wt"><button data-a="l" title="Nach vorne">‹</button><button data-a="r" title="Nach hinten">›</button><button data-a="s" title="Breite">↔</button><button data-a="x" title="Ausblenden">×</button></div>');
  el.ondragstart=e=>{e.dataTransfer.setData("text/plain",el.dataset.w);el.classList.add("drag")};
  el.ondragend=()=>{el.classList.remove("drag");dg.querySelectorAll(".over").forEach(o=>o.classList.remove("over"))};
  el.ondragover=e=>{if(document.body.classList.contains("edit")){e.preventDefault();el.classList.add("over")}};
  el.ondragleave=()=>el.classList.remove("over");
  el.ondrop=e=>{e.preventDefault();const a=e.dataTransfer.getData("text/plain"),b=el.dataset.w;if(a===b)return;
-  const i=S.layout.findIndex(l=>l.id===a),it=S.layout.splice(i,1)[0],j=S.layout.findIndex(l=>l.id===b);S.layout.splice(j,0,it);save();layout()}});
-function layout(){S.layout.forEach(l=>{const el=dg.querySelector(`[data-w="${l.id}"]`);el.style.setProperty("--c",l.c);el.style.display=l.on?"":"none";dg.appendChild(el)});
+  const i=S.layout.findIndex(l=>l.id===a);if(i<0)return;const it=S.layout.splice(i,1)[0],j=S.layout.findIndex(l=>l.id===b);S.layout.splice(j<0?S.layout.length:j,0,it);save();layout()}});
+function layout(){S.layout.forEach(l=>{const el=dg.querySelector(`[data-w="${l.id}"]`);if(!el)return;el.style.setProperty("--c",l.c);el.style.display=l.on?"":"none";dg.appendChild(el)});
  $("libl").innerHTML=S.layout.filter(l=>!l.on).map(l=>`<button class="btn" onclick="wadd('${l.id}')">+ ${W[l.id][0]}</button>`).join("")||'<span class="muted">Alle Widgets sind sichtbar.</span>'}
 window.wadd=id=>{S.layout.find(l=>l.id===id).on=1;save();layout()};
 dg.addEventListener("click",e=>{const b=e.target.closest(".wt button");if(!b)return;
@@ -90,7 +91,8 @@ $("fs").onclick=()=>{if(tm){clearInterval(tm);tm=null;$("fs").textContent="Weite
   if(left<=0){clearInterval(tm);tm=null;left=1500;fc();S.focus.n++;save();fc();$("ft").textContent="Fertig ✓";$("fs").textContent="Start"}},1000)};
 $("fr").onclick=()=>{clearInterval(tm);tm=null;left=1500;$("ft").textContent="25:00";$("fs").textContent="Start"};
 
-onRender(()=>{Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l.id===id))S.layout.push({id,c:W[id][1],on:1})});S.layout=S.layout.filter(l=>W[l.id]);
+onRender(()=>{S.layout=(Array.isArray(S.layout)?S.layout:[]).filter(l=>l&&W[l.id]);
+Object.keys(W).forEach(id=>{if(!S.layout.some(l=>l&&l.id===id))S.layout.push({id,c:W[id][1],on:1})});S.layout=(Array.isArray(S.layout)?S.layout:[]).filter(l=>l&&W[l.id]);
  tick();progress();tasks();events();gcal();layout();habits();fc();school();due();today()});
 news();
 
